@@ -1,0 +1,17 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/LocalFarmer/bin/Debug/net6.0
+/LocalFarmer/obj
+/LocalFarmer.API/bin/Debug/net6.0
+/LocalFarmer.API/obj
+/LocalFarmer.Data/bin/Debug/net6.0
+/LocalFarmer.Data/obj
+/LocalFarmer.Domain/bin/Debug/net6.0
+/LocalFarmer.Domain/obj
+/LocalFarmer.Repositories/bin/Debug/net6.0
+/LocalFarmer.Repositories/obj
+/LocalFarmer.Services/bin/Debug/net6.0
+/LocalFarmer.Services/obj
