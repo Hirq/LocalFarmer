@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalFarmer.API", "LocalFarmer\LocalFarmer.API.csproj", "{A7DC0250-59CF-4091-BC02-B5DDAA9F046A}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalFarmer.Data", "LocalFarmer.Data\LocalFarmer.Data.csproj", "{C9C9CD8A-F904-41A0-9556-20B02F5AEC5F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalFarmer.Domain", "LocalFarmer.Domain\LocalFarmer.Domain.csproj", "{3D422569-D238-46CD-B006-E41A6A4B13DC}"
@@ -13,16 +11,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalFarmer.Repositories", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalFarmer.Services", "LocalFarmer.Services\LocalFarmer.Services.csproj", "{49FE3851-2876-44A0-87B9-53B93E1ACD24}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LocalFarmer.API", "LocalFarmer.API\LocalFarmer.API.csproj", "{A42E09AB-CBD5-488B-9E3C-5CD77884B187}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A7DC0250-59CF-4091-BC02-B5DDAA9F046A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A7DC0250-59CF-4091-BC02-B5DDAA9F046A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A7DC0250-59CF-4091-BC02-B5DDAA9F046A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A7DC0250-59CF-4091-BC02-B5DDAA9F046A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C9C9CD8A-F904-41A0-9556-20B02F5AEC5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C9C9CD8A-F904-41A0-9556-20B02F5AEC5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9C9CD8A-F904-41A0-9556-20B02F5AEC5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,6 +35,10 @@ Global
 		{49FE3851-2876-44A0-87B9-53B93E1ACD24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49FE3851-2876-44A0-87B9-53B93E1ACD24}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49FE3851-2876-44A0-87B9-53B93E1ACD24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A42E09AB-CBD5-488B-9E3C-5CD77884B187}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A42E09AB-CBD5-488B-9E3C-5CD77884B187}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A42E09AB-CBD5-488B-9E3C-5CD77884B187}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A42E09AB-CBD5-488B-9E3C-5CD77884B187}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
