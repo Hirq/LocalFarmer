@@ -5,8 +5,10 @@ using LocalFarmer.API.ViewModels.DTOs;
 using LocalFarmer.Domain.Models;
 using LocalFarmer.Repositories;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Net;
 using System.Text.Json;
@@ -71,9 +73,9 @@ namespace LocalFarmer.API.Controllers
 
             return Ok(farmhouse);
         }
-        //TODO:
+        //TODO: Przygotować PATCH według JsonPatchDocument oraz drugi taki aby można było wpisać tylko 1 wartość z modelu
         [HttpPatch, Route("Farmhouse/{id}")]
-        public async Task<IActionResult> PatchFarmhouse(FarmhouseDto? dto, int id)
+        public async Task<IActionResult> PatchFarmhouse(JsonPatchDocument<FarmhouseDto> dto, int id)
         {
             var farmhouse = await _farmhouseRepository.GetSingleAsync(x => x.Id == id);
             farmhouse = _mapper.Map<Farmhouse>(dto);
