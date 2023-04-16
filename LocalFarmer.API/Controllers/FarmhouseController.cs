@@ -1,15 +1,10 @@
 ﻿using AutoMapper;
 using LocalFarmer.API.Utilities;
-using LocalFarmer.API.ViewModels;
 using LocalFarmer.API.ViewModels.DTOs;
 using LocalFarmer.Domain.Models;
 using LocalFarmer.Repositories;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using System.ComponentModel.DataAnnotations;
-using System.Net;
-using System.Text.Json;
 
 //TODO: Pozwracać kody opdowiednie
 //POST 201
@@ -19,12 +14,12 @@ namespace LocalFarmer.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class FarmhouseContoller : ControllerBase
+    public class FarmhouseController : ControllerBase
     {
         private readonly IFarmhouseRepository _farmhouseRepository;
         private readonly IMapper _mapper;
 
-        public FarmhouseContoller(IFarmhouseRepository farmhouseRepository,
+        public FarmhouseController(IFarmhouseRepository farmhouseRepository,
             IMapper mapper)
         {
             _farmhouseRepository = farmhouseRepository;

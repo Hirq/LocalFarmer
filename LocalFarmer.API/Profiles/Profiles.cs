@@ -4,11 +4,12 @@ using LocalFarmer.Domain.Models;
 
 namespace LocalFarmer.API.Profiles
 {
-    public class FarmhouseProfile : Profile
+    public class Profiles : Profile
     {
-        public FarmhouseProfile()
+        public Profiles()
         {
             CreateMap<FarmhouseDto, Farmhouse>();
+            CreateMap<ProductDto, Product>();
         }
     }
 }
