@@ -3,6 +3,7 @@ using LocalFarmer.API.Utilities;
 using LocalFarmer.API.ViewModels.DTOs;
 using LocalFarmer.Domain.Models;
 using LocalFarmer.Repositories;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -37,7 +38,12 @@ namespace LocalFarmer.API.Controllers
         [HttpGet, Route("Farmhouse/{id}")]
         public async Task<IActionResult> GetFarmhouse(int id)
         {
-            var farmhouse = await _farmhouseRepository.GetSingleAsync(x => x.Id == id);
+            Farmhouse farmhouse = await _farmhouseRepository.GetSingleAsync(x => x.Id == id);
+
+            if (farmhouse == null)
+            {
+                return NotFound();
+            }
 
             return Ok(farmhouse);
         }
@@ -45,7 +51,8 @@ namespace LocalFarmer.API.Controllers
         [HttpPost, Route("Farmhouse")]
         public async Task<IActionResult> AddFarmhouse(FarmhouseDto dto)
         {
-            var farmhouse = _mapper.Map<Farmhouse>(dto);
+            Farmhouse farmhouse = _mapper.Map<Farmhouse>(dto);
+
             _farmhouseRepository.Add(farmhouse);
             await _farmhouseRepository.SaveChangesAsync();
 
@@ -56,23 +63,51 @@ namespace LocalFarmer.API.Controllers
         [SwaggerOperationFilter(typeof(ReApplyOptionalRouteParameterOperationFilter))]
         public async Task<IActionResult> PutFarmhouse(FarmhouseDto dto, int id = 0)
         {
-            var farmhouse = _mapper.Map<Farmhouse>(dto);
+            Farmhouse farmhouse = _mapper.Map<Farmhouse>(dto);
+
             if (id != 0)
             {
                 farmhouse.Id = id;
             }
+
             _farmhouseRepository.Update(farmhouse);
             await _farmhouseRepository.SaveChangesAsync();
 
             return Ok(farmhouse);
         }
-        //TODO: Przygotować PATCH według JsonPatchDocument oraz drugi taki aby można było wpisać tylko 1 wartość z modelu
+
         [HttpPatch, Route("Farmhouse/{id}")]
-        public async Task<IActionResult> PatchFarmhouse(JsonPatchDocument<FarmhouseDto> dto, int id)
+        public async Task<IActionResult> PatchFarmhouse([FromBody] JsonPatchDocument<FarmhouseDto> dto, int id)
         {
-            var farmhouse = await _farmhouseRepository.GetSingleAsync(x => x.Id == id);
-            farmhouse = _mapper.Map<Farmhouse>(dto);
-            _farmhouseRepository.Update(farmhouse);
+            Farmhouse farmhouse = await _farmhouseRepository.GetSingleAsync(x => x.Id == id);
+
+            if (farmhouse == null)
+            {
+                return NotFound();
+            }
+
+            var farmhouseDto = _mapper.Map<FarmhouseDto>(farmhouse);
+
+            dto.ApplyTo(farmhouseDto);
+
+            _mapper.Map(farmhouseDto, farmhouse);
+
+            await _farmhouseRepository.SaveChangesAsync();
+
+            return Ok(farmhouse);
+        }      
+        
+        [HttpPatch, Route("Farmhouse2/{id}")]
+        public async Task<IActionResult> PatchFarmhouse2([FromBody] FarmhouseDto dto, int id)
+        {
+            Farmhouse farmhouse = await _farmhouseRepository.GetSingleAsync(x => x.Id == id);
+
+            if (farmhouse == null)
+            {
+                return NotFound();
+            }
+
+            _mapper.Map(dto, farmhouse);
             await _farmhouseRepository.SaveChangesAsync();
 
             return Ok(farmhouse);
@@ -82,6 +117,12 @@ namespace LocalFarmer.API.Controllers
         public async Task<IActionResult> DeleteFarmhouse(int id)
         {
             Farmhouse farmhouse = await _farmhouseRepository.GetSingleAsync(x => x.Id == id);
+
+            if (farmhouse == null)
+            {
+                return NotFound();
+            }
+
             await _farmhouseRepository.DeleteAsync(farmhouse);
             await _farmhouseRepository.SaveChangesAsync();
 

@@ -10,7 +10,7 @@ namespace LocalFarmer.API.Profiles
         public Profiles()
         {
             CreateMap<FarmhouseDto, Farmhouse>();
-            CreateMap<JsonPatchDocument<FarmhouseDto>, JsonPatchDocument<Farmhouse>>();
+            CreateMap<Farmhouse, FarmhouseDto>();
             CreateMap<ProductDto, Product>();
         }
     }
