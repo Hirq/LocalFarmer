@@ -15,3 +15,5 @@
 /LocalFarmer.Repositories/obj
 /LocalFarmer.Services/bin/Debug/net6.0
 /LocalFarmer.Services/obj
+/LocalFarmer.Web/obj
+/LocalFarmer.Web/bin/Debug/net6.0

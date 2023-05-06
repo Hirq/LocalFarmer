@@ -1,6 +1,7 @@
 using LocalFarmer.API.Utilities;
 using LocalFarmer.Data.Context;
-using LocalFarmer.Repositories;
+using LocalFarmer.Repositories.Interfaces;
+using LocalFarmer.Repositories.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,6 +27,11 @@ builder.Services.AddScoped<IFarmhouseRepository, FarmhouseRepository>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -34,6 +40,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseCors();
 
 app.UseHttpsRedirection();
 

@@ -1,6 +1,7 @@
 ﻿using LocalFarmer.Domain.Models;
+using LocalFarmer.Repositories.Base;
 
-namespace LocalFarmer.Repositories
+namespace LocalFarmer.Repositories.Interfaces
 {
     public interface IFarmhouseRepository : IBaseRepository<Farmhouse>
     {

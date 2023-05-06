@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace LocalFarmer.Repositories
+namespace LocalFarmer.Repositories.Base
 {
     public interface IBaseRepository<TEntity> where TEntity : class
     {

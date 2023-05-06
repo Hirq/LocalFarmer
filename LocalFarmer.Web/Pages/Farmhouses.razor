@@ -1,0 +1,34 @@
+﻿@page "/farmhouses"
+@inject IFarmhouseService FarmhouseService
+
+<PageTitle>Farmhouses</PageTitle>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Adress</th>
+            <th>Email</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var farmhouse in FarmhouseService.Farmhouses)
+        {
+            <tr>
+                <th>@farmhouse.Name</th>
+                <th>@farmhouse.Description</th>
+                <th>@farmhouse.Address</th>
+                <th>@farmhouse.Phone</th>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await FarmhouseService.GetFarmhouses();
+    }
+}

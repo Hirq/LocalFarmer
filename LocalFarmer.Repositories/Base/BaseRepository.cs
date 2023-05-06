@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace LocalFarmer.Repositories
+namespace LocalFarmer.Repositories.Base
 {
     public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
     {

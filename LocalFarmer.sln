@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalFarmer.Data", "LocalFarmer.Data\LocalFarmer.Data.csproj", "{C9C9CD8A-F904-41A0-9556-20B02F5AEC5F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LocalFarmer.Data", "LocalFarmer.Data\LocalFarmer.Data.csproj", "{C9C9CD8A-F904-41A0-9556-20B02F5AEC5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalFarmer.Domain", "LocalFarmer.Domain\LocalFarmer.Domain.csproj", "{3D422569-D238-46CD-B006-E41A6A4B13DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LocalFarmer.Domain", "LocalFarmer.Domain\LocalFarmer.Domain.csproj", "{3D422569-D238-46CD-B006-E41A6A4B13DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalFarmer.Repositories", "LocalFarmer.Repositories\LocalFarmer.Repositories.csproj", "{CE9C7EBD-1373-4900-A30E-D265ACBAE8FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LocalFarmer.Repositories", "LocalFarmer.Repositories\LocalFarmer.Repositories.csproj", "{CE9C7EBD-1373-4900-A30E-D265ACBAE8FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalFarmer.Services", "LocalFarmer.Services\LocalFarmer.Services.csproj", "{49FE3851-2876-44A0-87B9-53B93E1ACD24}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LocalFarmer.Services", "LocalFarmer.Services\LocalFarmer.Services.csproj", "{49FE3851-2876-44A0-87B9-53B93E1ACD24}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LocalFarmer.API", "LocalFarmer.API\LocalFarmer.API.csproj", "{A42E09AB-CBD5-488B-9E3C-5CD77884B187}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalFarmer.Web", "LocalFarmer.Web\LocalFarmer.Web.csproj", "{B512A842-B8B7-4DA8-A0AB-742F54EAC061}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{A42E09AB-CBD5-488B-9E3C-5CD77884B187}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A42E09AB-CBD5-488B-9E3C-5CD77884B187}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A42E09AB-CBD5-488B-9E3C-5CD77884B187}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B512A842-B8B7-4DA8-A0AB-742F54EAC061}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B512A842-B8B7-4DA8-A0AB-742F54EAC061}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B512A842-B8B7-4DA8-A0AB-742F54EAC061}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B512A842-B8B7-4DA8-A0AB-742F54EAC061}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
