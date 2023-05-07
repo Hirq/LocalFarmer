@@ -12,6 +12,19 @@ namespace LocalFarmer.Web.Services
         }
 
         public List<Farmhouse> Farmhouses {get; set;} = new List<Farmhouse>();
+        public Farmhouse Farmhouse {get; set;} = new Farmhouse();
+
+        public async Task<Farmhouse> GetFarmhouse(int id)
+        {
+            var result = await _http.GetFromJsonAsync<Farmhouse>($"https://localhost:7290/api/Farmhouse/Farmhouse/{id}");
+            if (result != null)
+            {
+                Farmhouse = result;
+            }
+
+            return Farmhouse;
+
+        }
 
         public async Task GetFarmhouses()
         {

@@ -1,0 +1,24 @@
+﻿@page "/farmhouse/{id:int}"
+@inject IFarmhouseService FarmhouseService
+
+<PageTitle>Farmhouse</PageTitle>
+
+<h2>@farmhouse.Name - @farmhouse.Id</h2>
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    Farmhouse farmhouse = new Farmhouse();
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (Id == null)
+        {
+
+        }
+        else
+        {
+            farmhouse = await FarmhouseService.GetFarmhouse(Id);
+        }
+    }
+}

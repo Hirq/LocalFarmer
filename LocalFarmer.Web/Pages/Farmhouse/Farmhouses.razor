@@ -1,9 +1,10 @@
 ﻿@page "/farmhouses"
 @inject IFarmhouseService FarmhouseService
+@inject NavigationManager NavigationManager
 
 <PageTitle>Farmhouses</PageTitle>
 
-<table>
+<table class="table">
     <thead>
         <tr>
             <th>Name</th>
@@ -21,14 +22,24 @@
                 <th>@farmhouse.Description</th>
                 <th>@farmhouse.Address</th>
                 <th>@farmhouse.Phone</th>
+                <td>
+                    <button class="btn btn-primary" @onclick="(() => ShowFarmhouse(farmhouse.Id))">
+                        <i class="oi oi-pencil"></i>
+                    </button>
+                </td>
             </tr>
         }
     </tbody>
 </table>
 
 @code {
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task OnInitializedAsync()
     {
         await FarmhouseService.GetFarmhouses();
+    }
+
+    void ShowFarmhouse(int id)
+    {
+        NavigationManager.NavigateTo($"farmhouse/{id}");
     }
 }

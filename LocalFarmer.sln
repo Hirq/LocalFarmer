@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LocalFarmer.Services", "Loc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LocalFarmer.API", "LocalFarmer.API\LocalFarmer.API.csproj", "{A42E09AB-CBD5-488B-9E3C-5CD77884B187}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalFarmer.Web", "LocalFarmer.Web\LocalFarmer.Web.csproj", "{B512A842-B8B7-4DA8-A0AB-742F54EAC061}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LocalFarmer.Web", "LocalFarmer.Web\LocalFarmer.Web.csproj", "{B512A842-B8B7-4DA8-A0AB-742F54EAC061}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
