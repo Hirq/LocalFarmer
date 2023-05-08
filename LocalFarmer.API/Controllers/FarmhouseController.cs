@@ -1,11 +1,6 @@
-﻿using AutoMapper;
-using LocalFarmer.API.Utilities;
-using LocalFarmer.API.ViewModels.DTOs;
-using LocalFarmer.Domain.Models;
-using LocalFarmer.Repositories.Interfaces;
+﻿using LocalFarmer.API.Utilities;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Annotations;
 
 //TODO: Pozwracać kody opdowiednie

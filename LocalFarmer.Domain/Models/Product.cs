@@ -13,5 +13,10 @@ namespace LocalFarmer.Domain.Models
         public string CountAll { get; set; }
         public string CountMinOne { get; set; }
         public string PrizeOne { get; set; }
+
+        [ForeignKey(nameof(Farmhouse))]
+        public int IdFarmhouse { get; set; }
+
+        public Farmhouse Farmhouse { get; set; }
     }
 }

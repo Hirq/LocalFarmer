@@ -11,7 +11,8 @@
             <th>Description</th>
             <th>Adress</th>
             <th>Email</th>
-            <th></th>
+            <th>Details</th>
+            <th>Products</th>
         </tr>
     </thead>
     <tbody>
@@ -24,6 +25,11 @@
                 <th>@farmhouse.Phone</th>
                 <td>
                     <button class="btn btn-primary" @onclick="(() => ShowFarmhouse(farmhouse.Id))">
+                        <i class="oi oi-pencil"></i>
+                    </button>
+                </td>
+                <td>
+                    <button class="btn btn-primary" @onclick="(() => ShowProducts(farmhouse.Id))">
                         <i class="oi oi-pencil"></i>
                     </button>
                 </td>
@@ -41,5 +47,10 @@
     void ShowFarmhouse(int id)
     {
         NavigationManager.NavigateTo($"farmhouse/{id}");
+    }
+
+    void ShowProducts(int id)
+    {
+        NavigationManager.NavigateTo($"productsFarmhouse/{id}");
     }
 }

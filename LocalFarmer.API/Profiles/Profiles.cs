@@ -12,6 +12,7 @@ namespace LocalFarmer.API.Profiles
             CreateMap<FarmhouseDto, Farmhouse>();
             CreateMap<Farmhouse, FarmhouseDto>();
             CreateMap<ProductDto, Product>();
+            CreateMap<Product, ProductDto>();
         }
     }
 }

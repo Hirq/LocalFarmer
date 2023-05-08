@@ -1,7 +1,9 @@
+global using LocalFarmer.Repositories;
+global using AutoMapper;
+global using LocalFarmer.Domain.Models;
+global using LocalFarmer.API.ViewModels.DTOs;
 using LocalFarmer.API.Utilities;
 using LocalFarmer.Data.Context;
-using LocalFarmer.Repositories.Interfaces;
-using LocalFarmer.Repositories.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,6 +26,7 @@ builder.Services.AddDbContext<LocalfarmerDbContext>(
         builder.Configuration["ConnectionStrings:LocalFarmerDBConnectionString"]));
 
 builder.Services.AddScoped<IFarmhouseRepository, FarmhouseRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

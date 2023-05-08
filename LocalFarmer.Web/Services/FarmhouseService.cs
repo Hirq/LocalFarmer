@@ -1,5 +1,4 @@
-﻿using LocalFarmer.Domain.Models;
-using System.Net.Http.Json;
+﻿using System.Net.Http.Json;
 
 namespace LocalFarmer.Web.Services
 {
@@ -11,8 +10,8 @@ namespace LocalFarmer.Web.Services
             _http = http;
         }
 
-        public List<Farmhouse> Farmhouses {get; set;} = new List<Farmhouse>();
-        public Farmhouse Farmhouse {get; set;} = new Farmhouse();
+        public List<Farmhouse> Farmhouses { get; set; } = new List<Farmhouse>();
+        public Farmhouse Farmhouse { get; set; } = new Farmhouse();
 
         public async Task<Farmhouse> GetFarmhouse(int id)
         {

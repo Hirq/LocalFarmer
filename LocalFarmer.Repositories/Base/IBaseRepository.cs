@@ -8,6 +8,8 @@ namespace LocalFarmer.Repositories.Base
 
         Task<IEnumerable<TEntity>> GetAllAsync();
 
+        Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> whereExpression, params Expression<Func<TEntity, object>>[] includeProperties);
+
         TEntity GetSingle(Expression<Func<TEntity, bool>> whereExpression);
 
         Task<TEntity> GetSingleAsync(Expression<Func<TEntity, bool>> whereExpression);
