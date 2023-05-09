@@ -13,14 +13,16 @@ namespace LocalFarmer.Web.Services
         public List<Product> Products { get; set;} = new List<Product>();
         public Product Product { get; set; } = new Product();
 
-        public async Task GetProducts()
+        public async Task<List<Product>> GetProducts()
         {
             var result = await _http.GetFromJsonAsync<List<Product>>("https://localhost:7290/api/Product/ListProducts");
 
-            if (result != null)
+            if (result == null)
             {
-                Products = result;
+                throw new Exception("Not found products");
             }
+
+            return result;
         }
 
         public async Task GetProductsFarmhouse(int idFarmhouse)

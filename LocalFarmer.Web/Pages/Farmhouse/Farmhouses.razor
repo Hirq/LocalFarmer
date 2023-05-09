@@ -1,49 +1,18 @@
-﻿@using System.Net.Http.Json
-@page "/farmhouses"
+﻿@page "/farmhouses"
 @inject IFarmhouseService FarmhouseService
 @inject NavigationManager NavigationManager
 @inject HttpClient httpClient
 
-
 <PageTitle>Farmhouses</PageTitle>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Adress</th>
-            <th>Email</th>
-            <th>Details</th>
-            <th>Products</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var farmhouse in FarmhouseService.Farmhouses)
-        {
-            <tr>
-                <th>@farmhouse.Name</th>
-                <th>@farmhouse.Description</th>
-                <th>@farmhouse.Address</th>
-                <th>@farmhouse.Phone</th>
-                <td>
-                    <button class="btn btn-primary" @onclick="(() => ShowFarmhouse(farmhouse.Id))">
-                        <i class="oi oi-pencil"></i>
-                    </button>
-                </td>
-                <td>
-                    <button class="btn btn-primary" @onclick="(() => ShowProducts(farmhouse.Id))">
-                        <i class="oi oi-pencil"></i>
-                    </button>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
 
 
+    <MudTable Items="@ListFarmhouses" SortLabel="Sort By" Hover="true" Filter="new Func<Farmhouse,bool>(FilterFunc)" CommitEditTooltip="Commit Edit">
+        <ToolBarContent>
+            <MudText Typo="Typo.h6">Periodic Elements</MudText>
+            <MudSpacer />
+            <MudTextField @bind-Value="searchString" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+        </ToolBarContent>
 
-
-<MudTable Items="@ListFarmhouses" Hover="true" SortLabel="Sort By">
     <HeaderContent>
         <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<Farmhouse, object>(x=>x.Id)">Nr</MudTableSortLabel></MudTh>
         <MudTh><MudTableSortLabel SortBy="new Func<Farmhouse, object>(x=>x.Name)">Sign</MudTableSortLabel></MudTh>
@@ -69,6 +38,8 @@
 
 @code {
     IEnumerable<Farmhouse> ListFarmhouses = new List<Farmhouse>();
+    private string searchString = null;
+    private MudTable<Farmhouse> table;
 
     protected override async Task OnInitializedAsync()
     {
@@ -83,5 +54,20 @@
     void ShowProducts(int id)
     {
         NavigationManager.NavigateTo($"productsFarmhouse/{id}");
+    }
+
+    private bool FilterFunc(Farmhouse farmhouse)
+    {
+        if (string.IsNullOrWhiteSpace(searchString))
+            return true;
+        if (farmhouse.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if (farmhouse.Address.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if (farmhouse.Description.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if ($"{farmhouse.Phone} {farmhouse.Id}".Contains(searchString))
+            return true;
+        return false;
     }
 }
