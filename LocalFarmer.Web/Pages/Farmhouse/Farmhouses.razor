@@ -1,9 +1,11 @@
-﻿@page "/farmhouses"
+﻿@using System.Net.Http.Json
+@page "/farmhouses"
 @inject IFarmhouseService FarmhouseService
 @inject NavigationManager NavigationManager
+@inject HttpClient httpClient
+
 
 <PageTitle>Farmhouses</PageTitle>
-
 <table class="table">
     <thead>
         <tr>
@@ -38,10 +40,39 @@
     </tbody>
 </table>
 
+
+
+
+<MudTable Items="@ListFarmhouses" Hover="true" SortLabel="Sort By">
+    <HeaderContent>
+        <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<Farmhouse, object>(x=>x.Id)">Nr</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<Farmhouse, object>(x=>x.Name)">Sign</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<Farmhouse, object>(x=>x.Description)">Description</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<Farmhouse, object>(x=>x.Address)">Address</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<Farmhouse, object>(x=>x.Phone)">Phone</MudTableSortLabel></MudTh>
+        <MudTh>Detail</MudTh>
+        <MudTh>Products</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Nr">@context.Id</MudTd>
+        <MudTd DataLabel="Sign">@context.Name</MudTd>
+        <MudTd DataLabel="Name">@context.Description</MudTd>
+        <MudTd DataLabel="Position">@context.Address</MudTd>
+        <MudTd DataLabel="Molar mass">@context.Phone</MudTd>
+        <MudTd DataLabel="Molar mass"><MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="() => ShowFarmhouse(context.Id)">Go to detail</MudButton></MudTd>
+        <MudTd DataLabel="Molar mass"><MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="() => ShowProducts(context.Id)">Show products</MudButton></MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager PageSizeOptions="new int[]{50, 100}" />
+    </PagerContent>
+</MudTable>
+
 @code {
+    IEnumerable<Farmhouse> ListFarmhouses = new List<Farmhouse>();
+
     protected override async Task OnInitializedAsync()
     {
-        await FarmhouseService.GetFarmhouses();
+        ListFarmhouses = await FarmhouseService.GetFarmhouses();
     }
 
     void ShowFarmhouse(int id)
