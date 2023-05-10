@@ -1,19 +1,21 @@
 ﻿@page "/farmhouses"
 @inject IFarmhouseService FarmhouseService
+@inject IProductService ProductService
 @inject NavigationManager NavigationManager
 @inject HttpClient httpClient
 
 <PageTitle>Farmhouses</PageTitle>
 
 
-    <MudTable Items="@ListFarmhouses" SortLabel="Sort By" Hover="true" Filter="new Func<Farmhouse,bool>(FilterFunc)" CommitEditTooltip="Commit Edit">
-        <ToolBarContent>
-            <MudText Typo="Typo.h6">Periodic Elements</MudText>
-            <MudSpacer />
-            <MudTextField @bind-Value="searchString" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
-        </ToolBarContent>
+<MudTable Items="@ListFarmhouses" SortLabel="Sort By" Hover="true" Filter="new Func<Farmhouse,bool>(FilterFunc)" CommitEditTooltip="Commit Edit">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Farmhouses</MudText>
+        <MudSpacer />
+        <MudTextField @bind-Value="searchString" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    </ToolBarContent>
 
     <HeaderContent>
+        <MudTh></MudTh>
         <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<Farmhouse, object>(x=>x.Id)">Nr</MudTableSortLabel></MudTh>
         <MudTh><MudTableSortLabel SortBy="new Func<Farmhouse, object>(x=>x.Name)">Sign</MudTableSortLabel></MudTh>
         <MudTh><MudTableSortLabel SortBy="new Func<Farmhouse, object>(x=>x.Description)">Description</MudTableSortLabel></MudTh>
@@ -23,6 +25,7 @@
         <MudTh>Products</MudTh>
     </HeaderContent>
     <RowTemplate>
+        <MudTd><MudButton Variant="Variant.Outlined" Size="Size.Small" OnClick="@(() => ShowBtnPress(context.Number))">@((context.ShowDetails == true) ? "Hide" : "Show") Address Details</MudButton></MudTd>
         <MudTd DataLabel="Nr">@context.Id</MudTd>
         <MudTd DataLabel="Sign">@context.Name</MudTd>
         <MudTd DataLabel="Name">@context.Description</MudTd>
@@ -31,6 +34,43 @@
         <MudTd DataLabel="Molar mass"><MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="() => ShowFarmhouse(context.Id)">Go to detail</MudButton></MudTd>
         <MudTd DataLabel="Molar mass"><MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="() => ShowProducts(context.Id)">Show products</MudButton></MudTd>
     </RowTemplate>
+
+    <ChildRowContent>
+        @if (context.ShowDetails)
+        {
+            <MudTr>
+                <td colspan="4">
+                    <MudCard Elevation="0">
+                        <MudCardHeader>
+                            <CardHeaderContent>
+                                <MudText Typo="Typo.body1">Address Details for <strong>@context.Name</strong></MudText>
+                            </CardHeaderContent>
+                        </MudCardHeader>
+                        <MudCardContent Class="pa-0">
+                            <MudTable Items="@context.Addresses" Context="AddressContext" Hover="true" Breakpoint="Breakpoint.Sm" Elevation="0">
+                                <ColGroup>
+                                    <col />
+                                    <col />
+                                    <col style="width:200px;" />
+                                </ColGroup>
+                                <HeaderContent>
+                                    <MudTh>Address Line 1</MudTh>
+                                    <MudTh>Address Line 2</MudTh>
+                                    <MudTh>Postal Code</MudTh>
+                                </HeaderContent>
+                                <RowTemplate>
+                                    <MudTd DataLabel="Address Line 1">@AddressContext.Address_Line_1</MudTd>
+                                    <MudTd DataLabel="Address Line 2">@AddressContext.Address_Line_2</MudTd>
+                                    <MudTd DataLabel="Postal Code">@AddressContext.Postal_Code</MudTd>
+                                </RowTemplate>
+                            </MudTable>
+                        </MudCardContent>
+                    </MudCard>
+                </td>
+            </MudTr>
+        }
+    </ChildRowContent>
+
     <PagerContent>
         <MudTablePager PageSizeOptions="new int[]{50, 100}" />
     </PagerContent>
@@ -38,8 +78,17 @@
 
 @code {
     IEnumerable<Farmhouse> ListFarmhouses = new List<Farmhouse>();
+
+    //TODO: Zrobić VM - dla Farmhouse z
+    // IList<Product> Products + GetFarmhouses zwróci nam wypełnioną te liste ??? Chyba osobną trzeba zrobić tutaj metode np
+    // GetFarmhousesWithProducts
+    // Product też powinien miec wtedy ShowDetails - pytanie czy to powinno być zwracane przez API, czy nie powinienem stworzyć nowego VM z tym atrybutem.
+
+
+    Product prodcut = new Product();
     private string searchString = null;
     private MudTable<Farmhouse> table;
+    public bool ShowDetails { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -69,5 +118,11 @@
         if ($"{farmhouse.Phone} {farmhouse.Id}".Contains(searchString))
             return true;
         return false;
+    }
+
+    private void ShowBtnPress(int nr)
+    {
+        Product tmpProduct = Product.First(f => f. == nr);
+        tmpProduct.ShowDetails = !tmpProduct.ShowDetails;
     }
 }
