@@ -29,6 +29,17 @@ namespace LocalFarmer.API.Controllers
             var farmhouses = await _farmhouseRepository.GetAllAsync();
 
             return Ok(farmhouses);
+        }      
+
+        [HttpGet, Route("ListFarmhousesWithProducts")]
+        public async Task<IActionResult> GetFarmhousesWithProducts()
+        {
+            var farmhouses = await _farmhouseRepository.GetAllAsync(
+                whereExpression: f => true,
+                includeProperties: f => f.Products
+            );
+
+            return Ok(farmhouses);
         }
 
         [HttpGet, Route("Farmhouse/{id}")]
@@ -42,7 +53,7 @@ namespace LocalFarmer.API.Controllers
             }
 
             return Ok(farmhouse);
-        }
+        }     
 
         [HttpPost, Route("Farmhouse")]
         public async Task<IActionResult> AddFarmhouse(FarmhouseDto dto)

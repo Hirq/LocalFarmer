@@ -36,5 +36,17 @@ namespace LocalFarmer.Web.Services
 
             return result;
         }
+
+        public async Task<List<Farmhouse>> GetFarmhousesWithProducts()
+        {
+            var result = await _http.GetFromJsonAsync<List<Farmhouse>>("https://localhost:7290/api/Farmhouse/ListFarmhousesWithProducts");
+
+            if (result == null)
+            {
+                throw new Exception();
+            }
+
+            return result;
+        }
     }
 }

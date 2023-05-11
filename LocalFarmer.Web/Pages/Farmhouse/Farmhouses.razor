@@ -25,7 +25,7 @@
         <MudTh>Products</MudTh>
     </HeaderContent>
     <RowTemplate>
-        <MudTd><MudButton Variant="Variant.Outlined" Size="Size.Small" OnClick="@(() => ShowBtnPress(context.Number))">@((context.ShowDetails == true) ? "Hide" : "Show") Address Details</MudButton></MudTd>
+        @*<MudTd><MudButton Variant="Variant.Outlined" Size="Size.Small" OnClick="@(() => ShowBtnPress(context.Number))">@((context.ShowDetails == true) ? "Hide" : "Show") Address Details</MudButton></MudTd>*@
         <MudTd DataLabel="Nr">@context.Id</MudTd>
         <MudTd DataLabel="Sign">@context.Name</MudTd>
         <MudTd DataLabel="Name">@context.Description</MudTd>
@@ -47,21 +47,21 @@
                             </CardHeaderContent>
                         </MudCardHeader>
                         <MudCardContent Class="pa-0">
-                            <MudTable Items="@context.Addresses" Context="AddressContext" Hover="true" Breakpoint="Breakpoint.Sm" Elevation="0">
+                            <MudTable Items="@context.Products" Context="ProductContext" Hover="true" Breakpoint="Breakpoint.Sm" Elevation="0">
                                 <ColGroup>
                                     <col />
                                     <col />
                                     <col style="width:200px;" />
                                 </ColGroup>
                                 <HeaderContent>
-                                    <MudTh>Address Line 1</MudTh>
-                                    <MudTh>Address Line 2</MudTh>
-                                    <MudTh>Postal Code</MudTh>
+                                    <MudTh>Name</MudTh>
+                                    <MudTh>Prize one</MudTh>
+                                    <MudTh>Description</MudTh>
                                 </HeaderContent>
                                 <RowTemplate>
-                                    <MudTd DataLabel="Address Line 1">@AddressContext.Address_Line_1</MudTd>
-                                    <MudTd DataLabel="Address Line 2">@AddressContext.Address_Line_2</MudTd>
-                                    <MudTd DataLabel="Postal Code">@AddressContext.Postal_Code</MudTd>
+                                    <MudTd DataLabel="Address Line 1">@ProductContext.Name</MudTd>
+                                    <MudTd DataLabel="Address Line 2">@ProductContext.PrizeOne</MudTd>
+                                    <MudTd DataLabel="Postal Code">@ProductContext.Description</MudTd>
                                 </RowTemplate>
                             </MudTable>
                         </MudCardContent>
@@ -80,19 +80,18 @@
     IEnumerable<Farmhouse> ListFarmhouses = new List<Farmhouse>();
 
     //TODO: Zrobić VM - dla Farmhouse z
-    // IList<Product> Products + GetFarmhouses zwróci nam wypełnioną te liste ??? Chyba osobną trzeba zrobić tutaj metode np
-    // GetFarmhousesWithProducts
+    // Farmhouse powinien mieć kazdy ShowDetails w VM - i jak klikamy to ustawiamy na true jeden z wielu, a reszta na false - na starcie tez wszystkie na false
     // Product też powinien miec wtedy ShowDetails - pytanie czy to powinno być zwracane przez API, czy nie powinienem stworzyć nowego VM z tym atrybutem.
 
 
-    Product prodcut = new Product();
+    Product product = new Product();
     private string searchString = null;
     private MudTable<Farmhouse> table;
     public bool ShowDetails { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        ListFarmhouses = await FarmhouseService.GetFarmhouses();
+        ListFarmhouses = await FarmhouseService.GetFarmhousesWithProducts();
     }
 
     void ShowFarmhouse(int id)
@@ -122,7 +121,7 @@
 
     private void ShowBtnPress(int nr)
     {
-        Product tmpProduct = Product.First(f => f. == nr);
-        tmpProduct.ShowDetails = !tmpProduct.ShowDetails;
+        //Product tmpProduct = Product.First(f => f. == nr);
+        //tmpProduct.ShowDetails = !tmpProduct.ShowDetails;
     }
 }
