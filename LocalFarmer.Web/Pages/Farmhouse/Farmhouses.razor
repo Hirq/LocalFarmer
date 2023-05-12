@@ -7,7 +7,7 @@
 <PageTitle>Farmhouses</PageTitle>
 
 
-<MudTable Items="@ListFarmhouses" SortLabel="Sort By" Hover="true" Filter="new Func<Farmhouse,bool>(FilterFunc)" CommitEditTooltip="Commit Edit">
+<MudTable Items="@ListFarmhousesVM" SortLabel="Sort By" Hover="true" Filter="new Func<FarmhouseViewModel,bool>(FilterFunc)" CommitEditTooltip="Commit Edit">
     <ToolBarContent>
         <MudText Typo="Typo.h6">Farmhouses</MudText>
         <MudSpacer />
@@ -16,16 +16,16 @@
 
     <HeaderContent>
         <MudTh></MudTh>
-        <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<Farmhouse, object>(x=>x.Id)">Nr</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel SortBy="new Func<Farmhouse, object>(x=>x.Name)">Sign</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel SortBy="new Func<Farmhouse, object>(x=>x.Description)">Description</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel SortBy="new Func<Farmhouse, object>(x=>x.Address)">Address</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel SortBy="new Func<Farmhouse, object>(x=>x.Phone)">Phone</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<FarmhouseViewModel, object>(x=>x.Id)">Nr</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<FarmhouseViewModel, object>(x=>x.Name)">Sign</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<FarmhouseViewModel, object>(x=>x.Description)">Description</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<FarmhouseViewModel, object>(x=>x.Address)">Address</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<FarmhouseViewModel, object>(x=>x.Phone)">Phone</MudTableSortLabel></MudTh>
         <MudTh>Detail</MudTh>
         <MudTh>Products</MudTh>
     </HeaderContent>
     <RowTemplate>
-        @*<MudTd><MudButton Variant="Variant.Outlined" Size="Size.Small" OnClick="@(() => ShowBtnPress(context.Number))">@((context.ShowDetails == true) ? "Hide" : "Show") Address Details</MudButton></MudTd>*@
+        <MudTd><MudButton Variant="Variant.Outlined" Size="Size.Small" OnClick="@(() => ShowBtnPress(context.Id))">@((context.ShowDetails == true) ? "Hide" : "Show") Address Details</MudButton></MudTd>
         <MudTd DataLabel="Nr">@context.Id</MudTd>
         <MudTd DataLabel="Sign">@context.Name</MudTd>
         <MudTd DataLabel="Name">@context.Description</MudTd>
@@ -78,8 +78,10 @@
 
 @code {
     IEnumerable<Farmhouse> ListFarmhouses = new List<Farmhouse>();
+    IEnumerable<FarmhouseViewModel> ListFarmhousesVM = new List<FarmhouseViewModel>();
 
-    //TODO: Zrobić VM - dla Farmhouse z
+    //TODO: zrobic Porzadek 
+    // Zrobić VM - dla Farmhouse z
     // Farmhouse powinien mieć kazdy ShowDetails w VM - i jak klikamy to ustawiamy na true jeden z wielu, a reszta na false - na starcie tez wszystkie na false
     // Product też powinien miec wtedy ShowDetails - pytanie czy to powinno być zwracane przez API, czy nie powinienem stworzyć nowego VM z tym atrybutem.
 
@@ -92,6 +94,7 @@
     protected override async Task OnInitializedAsync()
     {
         ListFarmhouses = await FarmhouseService.GetFarmhousesWithProducts();
+        ListFarmhousesVM = await FarmhouseService.GetFarmhousesWithProducts2();
     }
 
     void ShowFarmhouse(int id)
@@ -104,7 +107,7 @@
         NavigationManager.NavigateTo($"productsFarmhouse/{id}");
     }
 
-    private bool FilterFunc(Farmhouse farmhouse)
+    private bool FilterFunc(FarmhouseViewModel farmhouse)
     {
         if (string.IsNullOrWhiteSpace(searchString))
             return true;
@@ -119,9 +122,9 @@
         return false;
     }
 
-    private void ShowBtnPress(int nr)
+    private void ShowBtnPress(int id)
     {
-        //Product tmpProduct = Product.First(f => f. == nr);
-        //tmpProduct.ShowDetails = !tmpProduct.ShowDetails;
+        FarmhouseViewModel tmpProduct = ListFarmhousesVM.First(f => f.Id == id);
+        tmpProduct.ShowDetails = !tmpProduct.ShowDetails;
     }
 }

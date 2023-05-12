@@ -13,6 +13,6 @@ namespace LocalFarmer.Domain.Models
         public string Address { get; set; }
         public string Phone { get; set; }
 
-        public virtual IList<Product> Products { get; set;}
+        public virtual IList<Product> Products { get; set; }
     }
 }
