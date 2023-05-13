@@ -1,6 +1,4 @@
-﻿using System.Net.Http.Json;
-
-namespace LocalFarmer.Web.Services
+﻿namespace LocalFarmer.Web.Services
 {
     public class ProductService : IProductService
     {

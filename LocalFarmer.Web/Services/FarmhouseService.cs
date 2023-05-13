@@ -1,11 +1,4 @@
-﻿using AutoMapper;
-using LocalFarmer.Web.ViewModels;
-using System;
-using System.Net.Http.Json;
-using static MudBlazor.CategoryTypes;
-using static MudBlazor.Colors;
-
-namespace LocalFarmer.Web.Services
+﻿namespace LocalFarmer.Web.Services
 {
     public class FarmhouseService : IFarmhouseService
     {
@@ -19,18 +12,16 @@ namespace LocalFarmer.Web.Services
             _mapper = mapper;
         }
 
-        public List<Farmhouse> Farmhouses { get; set; } = new List<Farmhouse>();
-        public Farmhouse Farmhouse { get; set; } = new Farmhouse();
-
         public async Task<Farmhouse> GetFarmhouse(int id)
         {
             var result = await _http.GetFromJsonAsync<Farmhouse>($"https://localhost:7290/api/Farmhouse/Farmhouse/{id}");
-            if (result != null)
+
+            if (result == null)
             {
-                Farmhouse = result;
+                throw new Exception();
             }
 
-            return Farmhouse;
+            return result;
 
         }
 
@@ -60,7 +51,7 @@ namespace LocalFarmer.Web.Services
             return result;
         }
 
-        public async Task<List<FarmhouseViewModel>> GetFarmhousesWithProducts2()
+        public async Task<List<FarmhouseViewModel>> GetFarmhousesWithProductsAndButton()
         {
             List<Farmhouse> farmhouses = await _http.GetFromJsonAsync<List<Farmhouse>>("https://localhost:7290/api/Farmhouse/ListFarmhousesWithProducts");
 
@@ -68,14 +59,8 @@ namespace LocalFarmer.Web.Services
             {
                 throw new Exception();
             }
-            //List<FarmhouseViewModel> result = _mapper.Map<List<FarmhouseViewModel>>(farmhouses);
 
-
-            List<FarmhouseViewModel> result = _mapper.Map<List<Farmhouse>, List<FarmhouseViewModel>>(farmhouses);
-
-            //TODO: Brakowało Profiles w .Web
-
-            //var result = new List<FarmhouseViewModel>();
+            var result = _mapper.Map<List<FarmhouseViewModel>>(farmhouses);
 
             return result;
         }
