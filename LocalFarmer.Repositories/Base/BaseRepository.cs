@@ -82,5 +82,15 @@ namespace LocalFarmer.Repositories.Base
             }
             return await query.ToListAsync();
         }
+
+        public async Task<TEntity> GetSingleAsync(Expression<Func<TEntity, bool>> whereExpression, params Expression<Func<TEntity, object>>[] includeProperties)
+        {
+            var query = _context.Set<TEntity>().Where(whereExpression);
+            foreach (Expression<Func<TEntity, object>> includeProperty in includeProperties)
+            {
+                query = query.Include(includeProperty);
+            }
+            return await query().SingleAsync();
+        }
     }
 }

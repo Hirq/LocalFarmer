@@ -35,8 +35,8 @@ namespace LocalFarmer.API.Controllers
         public async Task<IActionResult> GetFarmhousesWithProducts()
         {
             var farmhouses = await _farmhouseRepository.GetAllAsync(
-                whereExpression: f => true,
-                includeProperties: f => f.Products
+                whereExpression: x => true,
+                includeProperties: x => x.Products
             );
 
             return Ok(farmhouses);
@@ -45,7 +45,9 @@ namespace LocalFarmer.API.Controllers
         [HttpGet, Route("Farmhouse/{id}")]
         public async Task<IActionResult> GetFarmhouse(int id)
         {
-            Farmhouse farmhouse = await _farmhouseRepository.GetSingleAsync(x => x.Id == id);
+            Farmhouse farmhouse = await _farmhouseRepository.GetSingleAsync(
+                whereExpression: x => x.Id == id,
+                includeProperties: x => x.Products);
 
             if (farmhouse == null)
             {

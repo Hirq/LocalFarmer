@@ -4,8 +4,8 @@
 @inject NavigationManager NavigationManager
 
 <PageTitle>Products Farmhouse @farmhouse.Name</PageTitle>
-
-@*<table class="table">
+@farmhouse.Name
+<table class="table">
     <thead>
         <tr>
             <th>Name</th>
@@ -17,7 +17,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var product in ProductService.Products)
+@*        @foreach (var product in farmhouse.Products)
         {
                 <tr>
                     <th>@product.Name</th>
@@ -31,9 +31,9 @@
                         </button>
                     </td>
                 </tr>
-        }
+        }*@
     </tbody>
-</table>*@
+</table>
 
 @code {
     [Parameter]

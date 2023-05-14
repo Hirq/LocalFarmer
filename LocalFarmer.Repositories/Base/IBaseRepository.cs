@@ -14,6 +14,8 @@ namespace LocalFarmer.Repositories.Base
 
         Task<TEntity> GetSingleAsync(Expression<Func<TEntity, bool>> whereExpression);
 
+        Task<TEntity> GetSingleAsync(Expression<Func<TEntity, bool>> whereExpression, params Expression<Func<TEntity, object>>[] includeProperties);
+
         void Add(TEntity entity);
 
         Task AddAsync(TEntity entity);
