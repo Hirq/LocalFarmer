@@ -17,7 +17,7 @@
         </tr>
     </thead>
     <tbody>
-@*        @foreach (var product in farmhouse.Products)
+        @foreach (var product in farmhouse.Products)
         {
                 <tr>
                     <th>@product.Name</th>
@@ -31,7 +31,7 @@
                         </button>
                     </td>
                 </tr>
-        }*@
+        }
     </tbody>
 </table>
 
@@ -43,20 +43,16 @@
 
     protected override async Task OnParametersSetAsync()
     {
-        if (Id == null)
-        {
-
-        }
-        else
+        if (Id > 0)
         {
             farmhouse = await FarmhouseService.GetFarmhouse(Id);
         }
     }
 
-    protected override async Task OnInitializedAsync()
-    {
-        await ProductService.GetProductsFarmhouse(Id);
-    }
+    //protected override async Task OnInitializedAsync()
+    //{
+    //    await ProductService.GetProductsFarmhouse(Id);
+    //}
 
     void ShowProduct(int id)
     {

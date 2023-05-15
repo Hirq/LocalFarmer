@@ -90,7 +90,7 @@ namespace LocalFarmer.Repositories.Base
             {
                 query = query.Include(includeProperty);
             }
-            return await query().SingleAsync();
+            return await query.SingleAsync();
         }
     }
 }
