@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace LocalFarmer.API.Controllers
 {
@@ -32,7 +30,7 @@ namespace LocalFarmer.API.Controllers
         [HttpGet, Route("Product/{id}")]
         public async Task<IActionResult> GetProduct(int id)
         {
-            Product product = await _productRepository.GetSingleAsync(x => x.Id == id);
+            Product product = await _productRepository.GetFirstOrDefaultAsync(x => x.Id == id);
 
             if (product == null)
             {

@@ -13,14 +13,14 @@ namespace LocalFarmer.Repositories.Base
             _context = context;
         }
 
-        public TEntity GetSingle(Expression<Func<TEntity, bool>> whereExpression)
+        public TEntity GetFirstOrDefault(Expression<Func<TEntity, bool>> whereExpression)
         {
-            return _context.Set<TEntity>().Where(whereExpression).Single();
+            return _context.Set<TEntity>().Where(whereExpression).FirstOrDefault();
         }
 
-        public async Task<TEntity> GetSingleAsync(Expression<Func<TEntity, bool>> whereExpression)
+        public async Task<TEntity> GetFirstOrDefaultAsync(Expression<Func<TEntity, bool>> whereExpression)
         {
-            return await _context.Set<TEntity>().Where(whereExpression).SingleAsync();
+            return await _context.Set<TEntity>().Where(whereExpression).FirstOrDefaultAsync();
         }
 
         public IEnumerable<TEntity> GetAll()
@@ -83,14 +83,14 @@ namespace LocalFarmer.Repositories.Base
             return await query.ToListAsync();
         }
 
-        public async Task<TEntity> GetSingleAsync(Expression<Func<TEntity, bool>> whereExpression, params Expression<Func<TEntity, object>>[] includeProperties)
+        public async Task<TEntity> GetFirstOrDefaultAsync(Expression<Func<TEntity, bool>> whereExpression, params Expression<Func<TEntity, object>>[] includeProperties)
         {
             var query = _context.Set<TEntity>().Where(whereExpression);
             foreach (Expression<Func<TEntity, object>> includeProperty in includeProperties)
             {
                 query = query.Include(includeProperty);
             }
-            return await query.SingleAsync();
+            return await query.FirstOrDefaultAsync();
         }
     }
 }

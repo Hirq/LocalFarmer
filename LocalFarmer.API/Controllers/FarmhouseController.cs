@@ -34,10 +34,7 @@ namespace LocalFarmer.API.Controllers
         [HttpGet, Route("ListFarmhousesWithProducts")]
         public async Task<IActionResult> GetFarmhousesWithProducts()
         {
-            var farmhouses = await _farmhouseRepository.GetAllAsync(
-                whereExpression: x => true,
-                includeProperties: x => x.Products
-            );
+            var farmhouses = await _farmhouseRepository.GetAllAsync(x => true, x => x.Products);
 
             return Ok(farmhouses);
         }
@@ -45,14 +42,7 @@ namespace LocalFarmer.API.Controllers
         [HttpGet, Route("Farmhouse/{id}")]
         public async Task<IActionResult> GetFarmhouse(int id)
         {
-            Farmhouse farmhouse = await _farmhouseRepository.GetSingleAsync(
-                whereExpression: x => x.Id == id,
-                includeProperties: x => x.Products);
-
-            if (farmhouse == null)
-            {
-                return NotFound();
-            }
+            Farmhouse farmhouse = await _farmhouseRepository.GetByIdOrThrowAsync(id, x => x.Products);
 
             return Ok(farmhouse);
         }     
@@ -88,12 +78,7 @@ namespace LocalFarmer.API.Controllers
         [HttpPatch, Route("Farmhouse/{id}")]
         public async Task<IActionResult> PatchFarmhouse([FromBody] JsonPatchDocument<FarmhouseDto> dto, int id)
         {
-            Farmhouse farmhouse = await _farmhouseRepository.GetSingleAsync(x => x.Id == id);
-
-            if (farmhouse == null)
-            {
-                return NotFound();
-            }
+            Farmhouse farmhouse = await _farmhouseRepository.GetByIdOrThrowAsync(id);
 
             var farmhouseDto = _mapper.Map<FarmhouseDto>(farmhouse);
 
@@ -109,12 +94,7 @@ namespace LocalFarmer.API.Controllers
         [HttpPatch, Route("Farmhouse2/{id}")]
         public async Task<IActionResult> PatchFarmhouse2([FromBody] FarmhouseDto dto, int id)
         {
-            Farmhouse farmhouse = await _farmhouseRepository.GetSingleAsync(x => x.Id == id);
-
-            if (farmhouse == null)
-            {
-                return NotFound();
-            }
+            Farmhouse farmhouse = await _farmhouseRepository.GetByIdOrThrowAsync(id);
 
             _mapper.Map(dto, farmhouse);
             await _farmhouseRepository.SaveChangesAsync();
@@ -125,12 +105,7 @@ namespace LocalFarmer.API.Controllers
         [HttpDelete, Route("Farmhouse/{id}")]
         public async Task<IActionResult> DeleteFarmhouse(int id)
         {
-            Farmhouse farmhouse = await _farmhouseRepository.GetSingleAsync(x => x.Id == id);
-
-            if (farmhouse == null)
-            {
-                return NotFound();
-            }
+            Farmhouse farmhouse = await _farmhouseRepository.GetByIdOrThrowAsync(id);
 
             await _farmhouseRepository.DeleteAsync(farmhouse);
             await _farmhouseRepository.SaveChangesAsync();

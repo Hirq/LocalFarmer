@@ -6,6 +6,6 @@ namespace LocalFarmer.Repositories
 {
     public interface IFarmhouseRepository : IBaseRepository<Farmhouse>
     {
-        Task<Farmhouse> GetByIdOrThrowAsync(int id);
+        Task<Farmhouse> GetByIdOrThrowAsync(int id, params Expression<Func<Farmhouse, object>>[] includeProperties);
     }
 }

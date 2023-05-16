@@ -1,6 +1,7 @@
 ﻿using LocalFarmer.Data.Context;
 using LocalFarmer.Domain.Models;
 using LocalFarmer.Repositories.Base;
+using System.Linq.Expressions;
 
 namespace LocalFarmer.Repositories
 {
@@ -10,10 +11,9 @@ namespace LocalFarmer.Repositories
         {
         }
 
-        //TODO: Check
-        public async Task<Farmhouse> GetByIdOrThrowAsync(int id)
+        public async Task<Farmhouse> GetByIdOrThrowAsync(int id, params Expression<Func<Farmhouse, object>>[] includeProperties)
         {
-            var farmhouse = await GetSingleAsync(x => x.Id == id);
+            var farmhouse = await GetFirstOrDefaultAsync(x => x.Id == id, includeProperties);
 
             if (farmhouse == null)
             {
