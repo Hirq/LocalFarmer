@@ -29,7 +29,7 @@ namespace LocalFarmer.API.Controllers
             var farmhouses = await _farmhouseRepository.GetAllAsync();
 
             return Ok(farmhouses);
-        }      
+        }
 
         [HttpGet, Route("ListFarmhousesWithProducts")]
         public async Task<IActionResult> GetFarmhousesWithProducts()
@@ -42,10 +42,10 @@ namespace LocalFarmer.API.Controllers
         [HttpGet, Route("Farmhouse/{id}")]
         public async Task<IActionResult> GetFarmhouse(int id)
         {
-            Farmhouse farmhouse = await _farmhouseRepository.GetByIdOrThrowAsync(id, x => x.Products);
+            Farmhouse farmhouse = await _farmhouseRepository.GetFirstOrDefaultAsync(x => x.Id == id, x => x.Products);
 
             return Ok(farmhouse);
-        }     
+        }
 
         [HttpPost, Route("Farmhouse")]
         public async Task<IActionResult> AddFarmhouse(FarmhouseDto dto)
@@ -78,7 +78,7 @@ namespace LocalFarmer.API.Controllers
         [HttpPatch, Route("Farmhouse/{id}")]
         public async Task<IActionResult> PatchFarmhouse([FromBody] JsonPatchDocument<FarmhouseDto> dto, int id)
         {
-            Farmhouse farmhouse = await _farmhouseRepository.GetByIdOrThrowAsync(id);
+            Farmhouse farmhouse = await _farmhouseRepository.GetFirstOrDefaultAsync(x => x.Id == id);
 
             var farmhouseDto = _mapper.Map<FarmhouseDto>(farmhouse);
 
@@ -89,12 +89,12 @@ namespace LocalFarmer.API.Controllers
             await _farmhouseRepository.SaveChangesAsync();
 
             return Ok(farmhouse);
-        }      
-        
+        }
+
         [HttpPatch, Route("Farmhouse2/{id}")]
         public async Task<IActionResult> PatchFarmhouse2([FromBody] FarmhouseDto dto, int id)
         {
-            Farmhouse farmhouse = await _farmhouseRepository.GetByIdOrThrowAsync(id);
+            Farmhouse farmhouse = await _farmhouseRepository.GetFirstOrDefaultAsync(x => x.Id == id);
 
             _mapper.Map(dto, farmhouse);
             await _farmhouseRepository.SaveChangesAsync();
@@ -105,7 +105,7 @@ namespace LocalFarmer.API.Controllers
         [HttpDelete, Route("Farmhouse/{id}")]
         public async Task<IActionResult> DeleteFarmhouse(int id)
         {
-            Farmhouse farmhouse = await _farmhouseRepository.GetByIdOrThrowAsync(id);
+            Farmhouse farmhouse = await _farmhouseRepository.GetFirstOrDefaultAsync(x => x.Id == id);
 
             await _farmhouseRepository.DeleteAsync(farmhouse);
             await _farmhouseRepository.SaveChangesAsync();

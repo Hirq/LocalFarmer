@@ -12,6 +12,8 @@ namespace LocalFarmer.Repositories.Base
 
         TEntity GetFirstOrDefault(Expression<Func<TEntity, bool>> whereExpression);
 
+        TEntity GetFirstOrDefault(Expression<Func<TEntity, bool>> whereExpression, params Expression<Func<TEntity, object>>[] includeProperties);
+
         Task<TEntity> GetFirstOrDefaultAsync(Expression<Func<TEntity, bool>> whereExpression);
 
         Task<TEntity> GetFirstOrDefaultAsync(Expression<Func<TEntity, bool>> whereExpression, params Expression<Func<TEntity, object>>[] includeProperties);

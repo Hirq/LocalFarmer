@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using static LocalFarmer.Domain.Models.MyType;
 
 namespace LocalFarmer.Domain.Models
 {
+    [TypeName(nameof(Product))]
     public class Product
     {
         [Key]

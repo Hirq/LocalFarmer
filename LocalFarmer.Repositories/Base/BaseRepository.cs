@@ -1,6 +1,8 @@
 ﻿using LocalFarmer.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using System.Reflection;
+using static LocalFarmer.Domain.Models.MyType;
 
 namespace LocalFarmer.Repositories.Base
 {
@@ -15,12 +17,30 @@ namespace LocalFarmer.Repositories.Base
 
         public TEntity GetFirstOrDefault(Expression<Func<TEntity, bool>> whereExpression)
         {
-            return _context.Set<TEntity>().Where(whereExpression).FirstOrDefault();
+            var element = _context.Set<TEntity>().Where(whereExpression).FirstOrDefault();
+
+            if (element == null)
+            {
+                var typeNameAttribute = typeof(TEntity).GetCustomAttribute<TypeNameAttribute>();
+                var entityTypeName = typeNameAttribute?.TypeName ?? typeof(TEntity).Name;
+                throw new KeyNotFoundException($"Not found object {entityTypeName}");
+            }
+
+            return element;
         }
 
         public async Task<TEntity> GetFirstOrDefaultAsync(Expression<Func<TEntity, bool>> whereExpression)
         {
-            return await _context.Set<TEntity>().Where(whereExpression).FirstOrDefaultAsync();
+            var element = await _context.Set<TEntity>().Where(whereExpression).FirstOrDefaultAsync();
+
+            if (element == null)
+            {
+                var typeNameAttribute = typeof(TEntity).GetCustomAttribute<TypeNameAttribute>();
+                var entityTypeName = typeNameAttribute?.TypeName ?? typeof(TEntity).Name;
+                throw new KeyNotFoundException($"Not found object {entityTypeName}");
+            }
+
+            return element;
         }
 
         public IEnumerable<TEntity> GetAll()
@@ -86,11 +106,43 @@ namespace LocalFarmer.Repositories.Base
         public async Task<TEntity> GetFirstOrDefaultAsync(Expression<Func<TEntity, bool>> whereExpression, params Expression<Func<TEntity, object>>[] includeProperties)
         {
             var query = _context.Set<TEntity>().Where(whereExpression);
+
             foreach (Expression<Func<TEntity, object>> includeProperty in includeProperties)
             {
                 query = query.Include(includeProperty);
             }
-            return await query.FirstOrDefaultAsync();
+
+            var element = await query.FirstOrDefaultAsync();
+
+            if (element == null)
+            {
+                var typeNameAttribute = typeof(TEntity).GetCustomAttribute<TypeNameAttribute>();
+                var entityTypeName = typeNameAttribute?.TypeName ?? typeof(TEntity).Name;
+                throw new KeyNotFoundException($"Not found object {entityTypeName}");
+            }
+
+            return element;
+        }
+
+        public TEntity GetFirstOrDefault(Expression<Func<TEntity, bool>> whereExpression, params Expression<Func<TEntity, object>>[] includeProperties)
+        {
+            var query = _context.Set<TEntity>().Where(whereExpression);
+
+            foreach (Expression<Func<TEntity, object>> includeProperty in includeProperties)
+            {
+                query = query.Include(includeProperty);
+            }
+
+            var element = query.FirstOrDefault();
+
+            if (element == null)
+            {
+                var typeNameAttribute = typeof(TEntity).GetCustomAttribute<TypeNameAttribute>();
+                var entityTypeName = typeNameAttribute?.TypeName ?? typeof(TEntity).Name;
+                throw new KeyNotFoundException($"Not found object {entityTypeName}");
+            }
+
+            return element;
         }
     }
 }
