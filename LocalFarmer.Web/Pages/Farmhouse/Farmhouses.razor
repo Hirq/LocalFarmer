@@ -76,16 +76,13 @@
 </MudTable>
 
 @code {
-    IEnumerable<Farmhouse> ListFarmhouses = new List<Farmhouse>();
     IEnumerable<FarmhouseViewModel> ListFarmhousesVM = new List<FarmhouseViewModel>();
-
     Product product = new Product();
     private string searchString = null;
     public bool ShowDetails { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        ListFarmhouses = await FarmhouseService.GetFarmhousesWithProducts();
         ListFarmhousesVM = await FarmhouseService.GetFarmhousesWithProductsAndButton();
     }
 

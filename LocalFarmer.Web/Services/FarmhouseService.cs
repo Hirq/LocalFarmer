@@ -22,7 +22,6 @@
             }
 
             return result;
-
         }
 
         public async Task<List<Farmhouse>> GetFarmhouses()
@@ -53,7 +52,7 @@
 
         public async Task<List<FarmhouseViewModel>> GetFarmhousesWithProductsAndButton()
         {
-            List<Farmhouse> farmhouses = await _http.GetFromJsonAsync<List<Farmhouse>>("https://localhost:7290/api/Farmhouse/ListFarmhousesWithProducts");
+            var farmhouses = await _http.GetFromJsonAsync<List<Farmhouse>>("https://localhost:7290/api/Farmhouse/ListFarmhousesWithProducts");
 
             if (farmhouses == null)
             {

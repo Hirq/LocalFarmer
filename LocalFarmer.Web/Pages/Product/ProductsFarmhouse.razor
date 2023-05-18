@@ -19,18 +19,18 @@
     <tbody>
         @foreach (var product in farmhouse.Products)
         {
-                <tr>
-                    <th>@product.Name</th>
-                    <th>@product.Description</th>
-                    <th>@product.CountMinOne</th>
-                    <th>@product.PrizeOne</th>
-                    <th>@product.CountAll</th>
-                    <td>
+            <tr>
+                <th>@product.Name</th>
+                <th>@product.Description</th>
+                <th>@product.CountMinOne</th>
+                <th>@product.PrizeOne</th>
+                <th>@product.CountAll</th>
+                <td>
                     <button class="btn btn-primary" @onclick="(() => ShowProduct(product.Id))">
-                            <i class="oi oi-pencil"></i>
-                        </button>
-                    </td>
-                </tr>
+                        <i class="oi oi-pencil"></i>
+                    </button>
+                </td>
+            </tr>
         }
     </tbody>
 </table>
@@ -41,18 +41,11 @@
 
     Farmhouse farmhouse = new Farmhouse();
 
-    protected override async Task OnParametersSetAsync()
+    protected override async Task OnInitializedAsync()
     {
-        if (Id > 0)
-        {
-            farmhouse = await FarmhouseService.GetFarmhouse(Id);
-        }
+        farmhouse.Products = new List<Product>();
+        farmhouse = await FarmhouseService.GetFarmhouse(Id);
     }
-
-    //protected override async Task OnInitializedAsync()
-    //{
-    //    await ProductService.GetProductsFarmhouse(Id);
-    //}
 
     void ShowProduct(int id)
     {
