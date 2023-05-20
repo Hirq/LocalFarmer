@@ -24,7 +24,7 @@
         <MudTh>Products</MudTh>
     </HeaderContent>
     <RowTemplate>
-        <MudTd><MudButton Variant="Variant.Outlined" Size="Size.Small" OnClick="@(() => ShowBtnPress(context.Id))">@((context.ShowDetails == true) ? "Hide" : "Show") Address Details</MudButton></MudTd>
+        <MudTd><MudButton Variant="Variant.Outlined" Size="Size.Small" OnClick="@(() => ShowBtnPress(context.Id))">@((context.ShowDetails == true) ? "Hide" : "Show") Products</MudButton></MudTd>
         <MudTd DataLabel="Nr">@context.Id</MudTd>
         <MudTd DataLabel="Sign">@context.Name</MudTd>
         <MudTd DataLabel="Name">@context.Description</MudTd>
@@ -42,7 +42,7 @@
                     <MudCard Outlined="true" Elevation="0" Class="list-products">
                         <MudCardHeader>
                             <CardHeaderContent>
-                                <MudText Typo="Typo.body1" Class="text-white">Details for <strong>@context.Name</strong></MudText>
+                                <MudText Typo="Typo.body1" Class="text-white">Products for <strong>@context.Name</strong></MudText>
                             </CardHeaderContent>
                         </MudCardHeader>
                         <MudCardContent Class="pa-0">
