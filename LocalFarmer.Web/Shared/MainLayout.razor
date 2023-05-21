@@ -8,8 +8,8 @@
     <MudAppBar>
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
         <MudSpacer />
-        <MudIconButton Icon="@Icons.Material.Outlined.Notifications" />
-        <MudAvatar Color="Color.Secondary" Size="Size.Medium">J</MudAvatar>
+        <MudIconButton Icon="@Icons.Material.Outlined.Notifications" Color="Color.Inherit" />
+        <MudAvatar Color="Color.Secondary" Size="Size.Medium" Class="avatar">J</MudAvatar>
         <MudIconButton Icon="@Icons.Material.Outlined.MoreVert" Color="Color.Inherit" />
     </MudAppBar>
     <MudDrawer @bind-Open="@_drawerOpen">
