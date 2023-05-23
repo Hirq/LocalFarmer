@@ -1,0 +1,41 @@
+﻿@page "/addproduct"
+@using System.ComponentModel.DataAnnotations
+
+<PageTitle>Add product</PageTitle>
+
+<EditForm Model="@model" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <MudText Class="d-flex justify-center" Typo="Typo.h6">Add product</MudText>
+    <MudGrid>
+        <MudItem xs="12">
+            <MudCard>
+                <MudCardContent>
+                    <MudTextField Label="Name product"
+                                  @bind-Value="model.Name" For="@(() => model.Name)"/>
+                    <MudTextField Label="Description"
+                                  @bind-Value="model.Description" For="@(() => model.Description)"/>
+                    <MudTextField Label="Count min"
+                                  @bind-Value="model.CountMinOne" For="@(() => model.CountMinOne)"/>
+                    <MudTextField Label="Prize for one"
+                                  @bind-Value="model.PrizeOne" For="@(() => model.PrizeOne)" />
+                    <MudTextField Label="Count all"
+                                  @bind-Value="model.CountAll" For="@(() => model.CountAll)" />
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Add product</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+</EditForm>
+
+@code {
+    Product model = new Product();
+    bool success;
+
+    private void OnValidSubmit(EditContext context)
+    {
+        success = true;
+        StateHasChanged();
+    }
+}

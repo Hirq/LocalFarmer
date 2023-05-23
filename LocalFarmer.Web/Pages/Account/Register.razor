@@ -2,8 +2,6 @@
 @page "/register"
 @using System.ComponentModel.DataAnnotations
 
-
-
 <MudPaper Height="1000px" Width="100%">
     <MudContainer Fixed="true">
         <MudPaper Height="1000px" Width="100%" Square="true" Class="mud-theme-primary">
@@ -20,8 +18,9 @@
                                 <MudTextField Label="Password" HelperText="Repeat the password" Class="mt-3"
                                               @bind-Value="model.Password2" For="@(() => model.Password2)" InputType="InputType.Password" />
                             </MudCardContent>
-                            <MudCardActions>
-                                <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Register</MudButton>
+                            <MudCardActions Class="justify-center gap-4">
+                                <MudButton Href="/login" Variant="Variant.Filled" Color="Color.Primary">Go to Login</MudButton>
+                                <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary">Register</MudButton>
                             </MudCardActions>
                         </MudCard>
                     </MudItem>
@@ -75,6 +74,5 @@
         success = true;
         StateHasChanged();
     }
-
 }
 

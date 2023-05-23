@@ -1,6 +1,71 @@
-﻿@page "/login"
-<h3>Login</h3>
+﻿@layout RegisterLayout
+@page "/login"
+@using System.ComponentModel.DataAnnotations
+
+<MudPaper Height="1000px" Width="100%">
+    <MudContainer Fixed="true">
+        <MudPaper Height="1000px" Width="100%" Square="true" Class="mud-theme-primary">
+            <EditForm Model="@model" OnValidSubmit="OnValidSubmit">
+                <DataAnnotationsValidator />
+                <MudGrid Class="justify-center pt-16">
+                    <MudItem xs="8">
+                        <MudCard>
+                            <MudCardContent>
+                                <MudTextField Label="Email" Class="mt-3"
+                                              @bind-Value="model.Email" For="@(() => model.Email)" />
+                                <MudTextField Label="Password" HelperText="Choose a strong password" Class="mt-3"
+                                              @bind-Value="model.Password" For="@(() => model.Password)" InputType="InputType.Password" />
+                            </MudCardContent>
+                            <MudCardActions Class="justify-center gap-4">
+                                <MudButton Href="/register" Variant="Variant.Filled" Color="Color.Primary">Go to Register</MudButton>
+                                <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary">Login</MudButton>
+                            </MudCardActions>
+                        </MudCard>
+                    </MudItem>
+                    <MudItem xs="8">
+                        <MudPaper Class="pa-4 mud-height-full">
+                            <MudText Typo="Typo.subtitle2">Validation Summary</MudText>
+                            @if (success)
+                            {
+                                <MudText Color="Color.Success">Success</MudText>
+                            }
+                            else
+                            {
+                                <MudText Color="@Color.Error">
+                                    <ValidationSummary />
+                                </MudText>
+                            }
+                        </MudPaper>
+                    </MudItem>
+                    <MudItem xs="12">
+                        <MudText Typo="Typo.body2" Align="Align.Center">
+                            Fill out the form correctly to see the success message.
+                        </MudText>
+                    </MudItem>
+                </MudGrid>
+            </EditForm>
+        </MudPaper>
+    </MudContainer>
+</MudPaper>
 
 @code {
+    RegisterAccountForm model = new RegisterAccountForm();
+    bool success;
 
+    public class RegisterAccountForm
+    {
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+
+        [Required]
+        public string Password { get; set; }
+    }
+
+    private void OnValidSubmit(EditContext context)
+    {
+        success = true;
+        StateHasChanged();
+    }
 }
+
