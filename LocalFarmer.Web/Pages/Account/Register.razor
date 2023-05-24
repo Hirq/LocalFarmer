@@ -7,9 +7,9 @@
         <MudPaper Height="1000px" Width="100%" Square="true" Class="mud-theme-primary">
             <EditForm Model="@model" OnValidSubmit="OnValidSubmit">
                 <DataAnnotationsValidator />
-                <MudGrid Class="justify-center pt-16">
-                    <MudItem xs="8">
-                        <MudCard>
+                <MudGrid Class="d-inline-flex justify-center pt-16">
+                    <MudItem xs="12" Class="d-flex justify-center">
+                        <MudCard Class="mud-grid-item-xs-3">
                             <MudCardContent>
                                 <MudTextField Label="Email" Class="mt-3"
                                               @bind-Value="model.Email" For="@(() => model.Email)" />
@@ -24,8 +24,8 @@
                             </MudCardActions>
                         </MudCard>
                     </MudItem>
-                    <MudItem xs="8">
-                        <MudPaper Class="pa-4 mud-height-full">
+                    <MudItem xs="12" Class="d-flex justify-center">
+                        <MudPaper Class="mud-grid-item-xs-3 pa-4 mud-height-full">
                             <MudText Typo="Typo.subtitle2">Validation Summary</MudText>
                             @if (success)
                             {
