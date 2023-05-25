@@ -2,51 +2,49 @@
 @page "/register"
 @using System.ComponentModel.DataAnnotations
 
-<MudPaper Height="1000px" Width="100%">
+<MudPaper Height="100vh" Width="100%" Square="true" Class="mud-theme-primary">
     <MudContainer Fixed="true">
-        <MudPaper Height="1000px" Width="100%" Square="true" Class="mud-theme-primary">
-            <EditForm Model="@model" OnValidSubmit="OnValidSubmit">
-                <DataAnnotationsValidator />
-                <MudGrid Class="d-inline-flex justify-center pt-16">
-                    <MudItem xs="12" Class="d-flex justify-center">
-                        <MudCard Class="mud-grid-item-xs-3">
-                            <MudCardContent>
-                                <MudTextField Label="Email" Class="mt-3"
-                                              @bind-Value="model.Email" For="@(() => model.Email)" />
-                                <MudTextField Label="Password" HelperText="Choose a strong password" Class="mt-3"
-                                              @bind-Value="model.Password" For="@(() => model.Password)" InputType="InputType.Password" />
-                                <MudTextField Label="Password" HelperText="Repeat the password" Class="mt-3"
-                                              @bind-Value="model.Password2" For="@(() => model.Password2)" InputType="InputType.Password" />
-                            </MudCardContent>
-                            <MudCardActions Class="justify-center gap-4">
-                                <MudButton Href="/login" Variant="Variant.Filled" Color="Color.Primary">Go to Login</MudButton>
-                                <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary">Register</MudButton>
-                            </MudCardActions>
-                        </MudCard>
-                    </MudItem>
-                    <MudItem xs="12" Class="d-flex justify-center">
-                        <MudPaper Class="mud-grid-item-xs-3 pa-4 mud-height-full">
-                            <MudText Typo="Typo.subtitle2">Validation Summary</MudText>
-                            @if (success)
-                            {
-                                <MudText Color="Color.Success">Success</MudText>
-                            }
-                            else
-                            {
-                                <MudText Color="@Color.Error">
-                                    <ValidationSummary />
-                                </MudText>
-                            }
-                        </MudPaper>
-                    </MudItem>
-                    <MudItem xs="12">
-                        <MudText Typo="Typo.body2" Align="Align.Center">
-                            Fill out the form correctly to see the success message.
-                        </MudText>
-                    </MudItem>
-                </MudGrid>
-            </EditForm>
-        </MudPaper>
+        <EditForm Model="@model" OnValidSubmit="OnValidSubmit">
+            <DataAnnotationsValidator />
+            <MudGrid Class="d-inline-flex justify-center pt-16">
+                <MudItem xs="12" Class="d-flex justify-center">
+                    <MudCard Class="mud-grid-item-xs-4">
+                        <MudCardContent Class="pt-0">
+                            <MudTextField Label="Email" Class="mt-3"
+                                          @bind-Value="model.Email" For="@(() => model.Email)" />
+                            <MudTextField Label="Password" HelperText="Choose a strong password" Class="mt-3"
+                                          @bind-Value="model.Password" For="@(() => model.Password)" InputType="InputType.Password" />
+                            <MudTextField Label="Password" HelperText="Repeat the password" Class="mt-3"
+                                          @bind-Value="model.Password2" For="@(() => model.Password2)" InputType="InputType.Password" />
+                        </MudCardContent>
+                        <MudCardActions Class="justify-center gap-4">
+                            <MudButton Href="/login" Variant="Variant.Filled" Color="Color.Primary">Go to Login</MudButton>
+                            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary">Register</MudButton>
+                        </MudCardActions>
+                    </MudCard>
+                </MudItem>
+                <MudItem xs="12" Class="d-flex justify-center">
+                    <MudPaper Class="mud-grid-item-xs-4 pa-4 mud-height-full">
+                        <MudText Typo="Typo.subtitle2">Validation Summary</MudText>
+                        @if (success)
+                        {
+                            <MudText Color="Color.Success">Success</MudText>
+                        }
+                        else
+                        {
+                            <MudText Color="@Color.Error">
+                                <ValidationSummary />
+                            </MudText>
+                        }
+                    </MudPaper>
+                </MudItem>
+                <MudItem xs="12">
+                    <MudText Typo="Typo.body2" Align="Align.Center">
+                        Fill out the form correctly to see the success message.
+                    </MudText>
+                </MudItem>
+            </MudGrid>
+        </EditForm>
     </MudContainer>
 </MudPaper>
 
