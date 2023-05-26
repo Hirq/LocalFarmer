@@ -1,4 +1,4 @@
-﻿namespace LocalFarmer.API.ViewModels.DTOs
+﻿namespace LocalFarmer.Domain.ViewModels.DTOs
 {
     public class ProductDto
     {

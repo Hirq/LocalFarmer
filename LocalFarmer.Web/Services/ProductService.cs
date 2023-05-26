@@ -3,12 +3,16 @@
     public class ProductService : IProductService
     {
         private readonly HttpClient _http;
-        public ProductService(HttpClient http)
+        private readonly IMapper _mapper;
+
+        public ProductService(HttpClient http,
+            IMapper mapper)
         {
             _http = http;
+            _mapper = mapper;
         }
 
-        public List<Product> Products { get; set;} = new List<Product>();
+        public List<Product> Products { get; set; } = new List<Product>();
         public Product Product { get; set; } = new Product();
 
         public async Task<List<Product>> GetProducts()
@@ -43,5 +47,10 @@
             return Product;
         }
 
+        public async Task AddProduct(ProductDto dto, int idFarmhouse)
+        {
+            Product product = _mapper.Map<Product>(dto);
+            await _http.PostAsJsonAsync<Product>($"https://localhost:7290/api/Product/Product/{idFarmhouse}", product);
+        }
     }
 }

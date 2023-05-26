@@ -1,6 +1,7 @@
 global using LocalFarmer.Domain.Models;
 global using LocalFarmer.Web.Services;
 global using LocalFarmer.Web.ViewModels;
+global using LocalFarmer.Domain.ViewModels.DTOs;
 global using System.Net.Http.Json;
 global using AutoMapper;
 using LocalFarmer.Web;

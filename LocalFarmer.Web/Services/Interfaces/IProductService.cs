@@ -5,5 +5,6 @@
         public Task<List<Product>> GetProducts();
         public Task GetProductsFarmhouse(int idFarmhouse);
         public Task<Product> GetProduct(int id);
+        public Task AddProduct(ProductDto dto, int idFarmhouse);
     }
 }

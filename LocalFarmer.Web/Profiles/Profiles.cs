@@ -6,6 +6,8 @@
         {
             CreateMap<Farmhouse, FarmhouseViewModel>();
             CreateMap<FarmhouseViewModel, Farmhouse>();
+            CreateMap<ProductDto, Product>();
+            CreateMap<Product, ProductDto>();
         }
     }
 }

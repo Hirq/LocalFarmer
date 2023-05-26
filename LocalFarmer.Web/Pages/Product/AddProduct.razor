@@ -1,4 +1,5 @@
 ﻿@page "/addproduct"
+@inject IProductService ProductService
 @using System.ComponentModel.DataAnnotations
 
 <PageTitle>Add product</PageTitle>
@@ -30,12 +31,14 @@
 </EditForm>
 
 @code {
-    Product model = new Product();
+    ProductDto model = new ProductDto();
     bool success;
 
-    private void OnValidSubmit(EditContext context)
+    private async void OnValidSubmit(EditContext context)
     {
         success = true;
+        Console.Write(model);
+        await ProductService.AddProduct(model, 1);
         StateHasChanged();
     }
 }

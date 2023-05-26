@@ -1,7 +1,7 @@
 global using LocalFarmer.Repositories;
 global using AutoMapper;
 global using LocalFarmer.Domain.Models;
-global using LocalFarmer.API.ViewModels.DTOs;
+global using LocalFarmer.Domain.ViewModels.DTOs;
 using LocalFarmer.API.Utilities;
 using LocalFarmer.Data.Context;
 using Microsoft.EntityFrameworkCore;
