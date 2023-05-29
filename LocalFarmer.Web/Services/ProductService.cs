@@ -27,13 +27,16 @@
             return result;
         }
 
-        public async Task GetProductsFarmhouse(int idFarmhouse)
+        public async Task<List<Product>> GetProductsFarmhouse(int idFarmhouse)
         {
             var result = await _http.GetFromJsonAsync<List<Product>>($"https://localhost:7290/api/Product/ListProductsFarmhouse/{idFarmhouse}");
-            if (result != null)
+            
+            if (result == null)
             {
-                Products = result;
+                throw new Exception("Not found products");
             }
+
+            return result;
         }
 
         public async Task<Product> GetProduct(int id)
