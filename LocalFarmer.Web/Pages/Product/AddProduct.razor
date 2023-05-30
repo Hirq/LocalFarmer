@@ -23,7 +23,7 @@
                                   @bind-Value="model.CountAll" For="@(() => model.CountAll)" />
                 </MudCardContent>
                 <MudCardActions>
-                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Add product</MudButton>
+                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" OnClick="() => Add()">Add product</MudButton>
                 </MudCardActions>
             </MudCard>
         </MudItem>
@@ -37,8 +37,11 @@
     private async void OnValidSubmit(EditContext context)
     {
         success = true;
-        Console.Write(model);
-        await ProductService.AddProduct(model, 1);
         StateHasChanged();
+    }
+
+    async void Add()
+    {
+        await ProductService.AddProduct(model, 1);
     }
 }

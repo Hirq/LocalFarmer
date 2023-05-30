@@ -42,12 +42,13 @@
         public async Task<Product> GetProduct(int id)
         {
             var result = await _http.GetFromJsonAsync<Product>($"https://localhost:7290/api/Product/Product/{id}");
-            if (result != null)
+           
+            if (result == null)
             {
-                Product = result;
+                throw new Exception("Not found products");
             }
 
-            return Product;
+            return result;
         }
 
         public async Task AddProduct(ProductDto dto, int idFarmhouse)
