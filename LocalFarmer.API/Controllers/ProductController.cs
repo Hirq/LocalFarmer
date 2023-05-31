@@ -48,7 +48,7 @@ namespace LocalFarmer.API.Controllers
             return Ok(products);
         }
 
-        [HttpPost, Route("Product")]
+        [HttpPost, Route("AddProduct/{idFarmhouse}")]
         public async Task<IActionResult> AddProduct(ProductDto dto, int idFarmhouse)
         {
             Product product = _mapper.Map<Product>(dto);

@@ -4,7 +4,7 @@
 
 <PageTitle>Add product</PageTitle>
 
-<EditForm Model="@model" OnValidSubmit="OnValidSubmit">
+<EditForm Model="model" OnValidSubmit="OnValidSubmit">
     <DataAnnotationsValidator />
     <MudText Class="d-flex justify-center" Typo="Typo.h6">Add product</MudText>
     <MudGrid>
@@ -23,7 +23,7 @@
                                   @bind-Value="model.CountAll" For="@(() => model.CountAll)" />
                 </MudCardContent>
                 <MudCardActions>
-                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" OnClick="() => Add()">Add product</MudButton>
+                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Add product</MudButton>
                 </MudCardActions>
             </MudCard>
         </MudItem>
@@ -34,13 +34,14 @@
     ProductDto model = new ProductDto();
     bool success;
 
-    private async void OnValidSubmit(EditContext context)
+    //TODO: Dodać alert że sie udało - lub że się nie udało
+
+    async Task HandleSubmit()
     {
-        success = true;
-        StateHasChanged();
+        await ProductService.AddProduct(model, 1);
     }
 
-    async void Add()
+    private async void OnValidSubmit(EditContext context)
     {
         await ProductService.AddProduct(model, 1);
     }
