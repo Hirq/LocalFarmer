@@ -13,7 +13,7 @@
         <MudTh><MudTableSortLabel SortBy="new Func<Product, object>(x=>x.CountMinOne)">Count min one</MudTableSortLabel></MudTh>
         <MudTh><MudTableSortLabel SortBy="new Func<Product, object>(x=>x.PrizeOne)">Prize one</MudTableSortLabel></MudTh>
         <MudTh><MudTableSortLabel SortBy="new Func<Product, object>(x=>x.CountAll)">Count all</MudTableSortLabel></MudTh>
-        <MudTh>Detail</MudTh>
+        <MudTh>Edit</MudTh>
     </HeaderContent>
     <RowTemplate>
         <MudTd DataLabel="Id">@context.Id</MudTd>
@@ -22,7 +22,7 @@
         <MudTd DataLabel="Count min one">@context.CountMinOne</MudTd>
         <MudTd DataLabel="Prize one">@context.PrizeOne</MudTd>
         <MudTd DataLabel="Count all">@context.CountAll</MudTd>
-        <MudTd DataLabel="Details"><MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="() => ShowProduct(context.Id)">Go to detail</MudButton></MudTd>
+        <MudTd DataLabel="Edit"><MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="() => EditProduct(context.Id)">Edit</MudButton></MudTd>
     </RowTemplate>
     <PagerContent>
         <MudTablePager PageSizeOptions="new int[]{50, 100}" />
@@ -38,8 +38,8 @@
         ListProducts = await ProductService.GetProductsFarmhouse(idFarmhouse);
     }
 
-    void ShowProduct(int id)
+    void EditProduct(int id)
     {
-        NavigationManager.NavigateTo($"product/{id}");
+        NavigationManager.NavigateTo($"editproduct/{id}");
     }
 }

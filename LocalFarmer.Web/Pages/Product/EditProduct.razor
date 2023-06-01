@@ -1,12 +1,12 @@
-﻿@page "/addproduct"
+﻿@page "/editproduct/{id:int}"
 @inject IProductService ProductService
 @using System.ComponentModel.DataAnnotations
 
-<PageTitle>Add product</PageTitle>
+<PageTitle>Edit product</PageTitle>
 
-<EditForm Model="model" OnValidSubmit="OnValidSubmit">
+<EditForm Model="model">
     <DataAnnotationsValidator />
-    <MudText Class="d-flex justify-center" Typo="Typo.h6">Add product</MudText>
+    <MudText Class="d-flex justify-center" Typo="Typo.h6">Edit product</MudText>
     <MudGrid>
         <MudItem xs="12">
             <MudCard>
@@ -23,7 +23,7 @@
                                   @bind-Value="model.CountAll" For="@(() => model.CountAll)" />
                 </MudCardContent>
                 <MudCardActions>
-                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Add product</MudButton>
+                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Edit product</MudButton>
                 </MudCardActions>
             </MudCard>
         </MudItem>
@@ -31,17 +31,15 @@
 </EditForm>
 
 @code {
-    ProductDto model = new ProductDto();
+    [Parameter]
+    public int Id { get; set; }
+
+    Product model = new Product();
 
     //TODO: Dodać alert że sie udało - lub że się nie udało
 
-    async Task HandleSubmit()
+    protected override async Task OnParametersSetAsync()
     {
-        await ProductService.AddProduct(model, 1);
-    }
-
-    private async void OnValidSubmit(EditContext context)
-    {
-        await ProductService.AddProduct(model, 1);
+        model = await ProductService.GetProduct(Id);
     }
 }
