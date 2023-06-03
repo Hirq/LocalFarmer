@@ -56,5 +56,11 @@
             Product product = _mapper.Map<Product>(dto);
             await _http.PostAsJsonAsync($"https://localhost:7290/api/Product/AddProduct/{idFarmhouse}", product);
         }
+
+        public async Task EditProduct(ProductDto dto, int idFarmhouse)
+        {
+            Product product = _mapper.Map<Product>(dto);
+            await _http.PutAsJsonAsync($"https://localhost:7290/api/Product/AddProduct/{idFarmhouse}", product);
+        }
     }
 }

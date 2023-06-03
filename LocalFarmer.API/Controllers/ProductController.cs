@@ -60,5 +60,21 @@ namespace LocalFarmer.API.Controllers
 
             return Ok(product);
         }
+
+        [HttpPut, Route("EditProduct/{idProduct}")]
+        public async Task<IActionResult> EditProduct(ProductDto dto, int idProduct)
+        {
+            Product product = _mapper.Map<Product>(dto);
+            if (idProduct != 0)
+            {
+                product.Id = idProduct;
+                product.IdFarmhouse = 
+            }
+
+            _productRepository.Update(product);
+            await _productRepository.SaveChangesAsync();
+
+            return Ok(product);
+        }
     }
 }
