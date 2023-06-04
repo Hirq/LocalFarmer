@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using LocalFarmer.Domain.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace LocalFarmer.API.Controllers
 {
@@ -40,6 +41,7 @@ namespace LocalFarmer.API.Controllers
             return Ok(product);
         }
 
+
         [HttpGet, Route("ListProductsFarmhouse/{idFarmhouse}")]
         public async Task<IActionResult> GetProductsFarmhouse(int idFarmhouse)
         {
@@ -64,17 +66,19 @@ namespace LocalFarmer.API.Controllers
         [HttpPut, Route("EditProduct/{idProduct}")]
         public async Task<IActionResult> EditProduct(ProductDto dto, int idProduct)
         {
-            Product product = _mapper.Map<Product>(dto);
+            var product = await _productRepository.GetFirstOrDefaultAsync(x => x.Id == idProduct);
+            Product newProduct = _mapper.Map<Product>(dto);
+
             if (idProduct != 0)
             {
-                product.Id = idProduct;
-                product.IdFarmhouse = 
+                newProduct.Id = idProduct;
+                newProduct.IdFarmhouse = product.IdFarmhouse;
             }
 
-            _productRepository.Update(product);
+            _productRepository.Update(newProduct);
             await _productRepository.SaveChangesAsync();
 
-            return Ok(product);
+            return Ok(newProduct);
         }
     }
 }

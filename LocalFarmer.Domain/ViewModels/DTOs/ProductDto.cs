@@ -7,6 +7,5 @@
         public string CountAll { get; set; }
         public string CountMinOne { get; set; }
         public string PrizeOne { get; set; }
-        public int IdFarmhouse { get; set; }
     }
 }

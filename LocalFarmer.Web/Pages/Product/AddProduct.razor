@@ -35,11 +35,6 @@
 
     //TODO: Dodać alert że sie udało - lub że się nie udało
 
-    async Task HandleSubmit()
-    {
-        await ProductService.AddProduct(model, 1);
-    }
-
     private async void OnValidSubmit(EditContext context)
     {
         await ProductService.AddProduct(model, 1);

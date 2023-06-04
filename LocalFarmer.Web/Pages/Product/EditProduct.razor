@@ -1,10 +1,11 @@
 ﻿@page "/editproduct/{id:int}"
 @inject IProductService ProductService
+@inject IMapper mapper
 @using System.ComponentModel.DataAnnotations
 
 <PageTitle>Edit product</PageTitle>
 
-<EditForm Model="model">
+<EditForm Model="model" OnValidSubmit="OnValidSubmit">
     <DataAnnotationsValidator />
     <MudText Class="d-flex justify-center" Typo="Typo.h6">Edit product</MudText>
     <MudGrid>
@@ -41,5 +42,11 @@
     protected override async Task OnParametersSetAsync()
     {
         model = await ProductService.GetProduct(Id);
+    }
+
+    private async void OnValidSubmit(EditContext context)
+    {
+        ProductDto dto = mapper.Map<ProductDto>(model);
+        await ProductService.EditProduct(dto, Id);
     }
 }

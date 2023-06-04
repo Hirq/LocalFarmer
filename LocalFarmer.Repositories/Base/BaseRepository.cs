@@ -17,7 +17,7 @@ namespace LocalFarmer.Repositories.Base
 
         public TEntity GetFirstOrDefault(Expression<Func<TEntity, bool>> whereExpression)
         {
-            var element = _context.Set<TEntity>().Where(whereExpression).FirstOrDefault();
+            var element = _context.Set<TEntity>().Where(whereExpression).AsNoTracking().FirstOrDefault();
 
             if (element == null)
             {
@@ -31,7 +31,7 @@ namespace LocalFarmer.Repositories.Base
 
         public async Task<TEntity> GetFirstOrDefaultAsync(Expression<Func<TEntity, bool>> whereExpression)
         {
-            var element = await _context.Set<TEntity>().Where(whereExpression).FirstOrDefaultAsync();
+            var element = await _context.Set<TEntity>().Where(whereExpression).AsNoTracking().FirstOrDefaultAsync();
 
             if (element == null)
             {
@@ -96,6 +96,7 @@ namespace LocalFarmer.Repositories.Base
         public async Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> whereExpression, params Expression<Func<TEntity, object>>[] includeProperties)
         {
             IQueryable<TEntity> query = _context.Set<TEntity>().Where(whereExpression);
+            
             foreach (Expression<Func<TEntity, object>> includeProperty in includeProperties)
             {
                 query = query.Include(includeProperty);
@@ -105,7 +106,7 @@ namespace LocalFarmer.Repositories.Base
 
         public async Task<TEntity> GetFirstOrDefaultAsync(Expression<Func<TEntity, bool>> whereExpression, params Expression<Func<TEntity, object>>[] includeProperties)
         {
-            var query = _context.Set<TEntity>().Where(whereExpression);
+            var query = _context.Set<TEntity>().Where(whereExpression).AsNoTracking();
 
             foreach (Expression<Func<TEntity, object>> includeProperty in includeProperties)
             {
@@ -126,7 +127,7 @@ namespace LocalFarmer.Repositories.Base
 
         public TEntity GetFirstOrDefault(Expression<Func<TEntity, bool>> whereExpression, params Expression<Func<TEntity, object>>[] includeProperties)
         {
-            var query = _context.Set<TEntity>().Where(whereExpression);
+            var query = _context.Set<TEntity>().Where(whereExpression).AsNoTracking();
 
             foreach (Expression<Func<TEntity, object>> includeProperty in includeProperties)
             {
