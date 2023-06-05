@@ -17,6 +17,7 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IFarmhouseService, FarmhouseService>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddSingleton<AlertService>();
 
 builder.Services.AddMudServices();
 

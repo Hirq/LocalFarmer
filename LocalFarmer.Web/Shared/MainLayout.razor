@@ -1,10 +1,11 @@
 ﻿@inherits LayoutComponentBase
+@inject AlertService alertService
 
 <MudThemeProvider />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
-<MudLayout>
+<MudLayout> 
     <MudAppBar>
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
         <MudSpacer />
@@ -16,6 +17,12 @@
         <NavMenu/>
     </MudDrawer>
     <MudMainContent>
+        @if (alertService.IsSuccessAlert)
+        {
+            <MudAlert Severity="Severity.Success" ContentAlignment="HorizontalAlignment.Center" Variant="Variant.Filled">Edit product</MudAlert>
+        }
+        <MudAlert Severity="Severity.Success" ContentAlignment="HorizontalAlignment.Center" Variant="Variant.Filled">Edit product</MudAlert>
+
         @Body
     </MudMainContent>
 </MudLayout>
@@ -27,4 +34,5 @@
     {
         _drawerOpen = !_drawerOpen;
     }
+
 }

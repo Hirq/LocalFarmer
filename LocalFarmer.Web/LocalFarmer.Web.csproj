@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Pages\AlertService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\css\Farmhouse.css" />
   </ItemGroup>
 
