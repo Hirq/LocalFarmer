@@ -52,6 +52,7 @@
     {
         ProductDto dto = mapper.Map<ProductDto>(model);
         await ProductService.EditProduct(dto, Id);
-        alertService.IsSuccessAlert = true;
+        alertService.SetSuccessAlert($"Successfully edited product {model.Name}");
+        NavigationManager.NavigateTo("/myproducts");
     }
 }

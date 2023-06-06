@@ -1,5 +1,7 @@
 ﻿@inherits LayoutComponentBase
 @inject AlertService alertService
+@inject IJSRuntime JSRuntime
+@using Microsoft.JSInterop
 
 <MudThemeProvider />
 <MudDialogProvider />
@@ -19,10 +21,8 @@
     <MudMainContent>
         @if (alertService.IsSuccessAlert)
         {
-            <MudAlert Severity="Severity.Success" ContentAlignment="HorizontalAlignment.Center" Variant="Variant.Filled">Edit product</MudAlert>
+            <MudAlert Severity="Severity.Success" ContentAlignment="HorizontalAlignment.Center" Variant="Variant.Filled" ShowCloseIcon="true" CloseIconClicked="() => CloseAlertSuccess()">@alertService.SuccessText </MudAlert>
         }
-        <MudAlert Severity="Severity.Success" ContentAlignment="HorizontalAlignment.Center" Variant="Variant.Filled">Edit product</MudAlert>
-
         @Body
     </MudMainContent>
 </MudLayout>
@@ -35,4 +35,18 @@
         _drawerOpen = !_drawerOpen;
     }
 
+    private void CloseAlertSuccess()
+    {
+        alertService.IsSuccessAlert = false;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (alertService.IsSuccessAlert)
+            {
+                alertService.IsSuccessAlert = false;
+                await JSRuntime.InvokeVoidAsync("closeAlertAfterDelay");
+            }
+        }
+    }
 }
