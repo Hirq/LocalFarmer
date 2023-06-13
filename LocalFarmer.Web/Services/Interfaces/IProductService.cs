@@ -7,5 +7,6 @@
         public Task<Product> GetProduct(int id);
         public Task AddProduct(ProductDto dto, int idFarmhouse);
         public Task EditProduct(ProductDto dto, int idProduct);
+        public Task DeleteProduct(int idProduct);
     }
 }

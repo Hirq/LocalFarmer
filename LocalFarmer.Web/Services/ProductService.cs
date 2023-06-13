@@ -1,4 +1,6 @@
-﻿namespace LocalFarmer.Web.Services
+﻿using LocalFarmer.Domain.Models;
+
+namespace LocalFarmer.Web.Services
 {
     public class ProductService : IProductService
     {
@@ -61,6 +63,11 @@
         {
             Product product = _mapper.Map<Product>(dto);
             await _http.PutAsJsonAsync($"https://localhost:7290/api/Product/EditProduct/{idProduct}", product);
+        }
+
+        public async Task DeleteProduct(int idProduct)
+        {
+            await _http.DeleteAsync($"https://localhost:7290/api/Product/DeleteProduct/{idProduct}");
         }
     }
 }

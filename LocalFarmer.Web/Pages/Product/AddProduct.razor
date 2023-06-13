@@ -1,6 +1,7 @@
 ﻿@page "/addproduct"
 @inject IProductService ProductService
-@using System.ComponentModel.DataAnnotations
+@inject NavigationManager NavigationManager
+@inject AlertService alertService
 
 <PageTitle>Add product</PageTitle>
 
@@ -12,15 +13,15 @@
             <MudCard>
                 <MudCardContent>
                     <MudTextField Label="Name product"
-                                  @bind-Value="model.Name" For="@(() => model.Name)"/>
+                                  @bind-Value="model.Name" Required For="@(() => model.Name)" />
                     <MudTextField Label="Description"
-                                  @bind-Value="model.Description" For="@(() => model.Description)"/>
+                                  @bind-Value="model.Description" Required For="@(() => model.Description)"/>
                     <MudTextField Label="Count min"
-                                  @bind-Value="model.CountMinOne" For="@(() => model.CountMinOne)"/>
+                                  @bind-Value="model.CountMinOne" Required For="@(() => model.CountMinOne)" />
                     <MudTextField Label="Prize for one"
-                                  @bind-Value="model.PrizeOne" For="@(() => model.PrizeOne)" />
+                                  @bind-Value="model.PrizeOne" Required For="@(() => model.PrizeOne)" />
                     <MudTextField Label="Count all"
-                                  @bind-Value="model.CountAll" For="@(() => model.CountAll)" />
+                                  @bind-Value="model.CountAll" Required For="@(() => model.CountAll)" />
                 </MudCardContent>
                 <MudCardActions>
                     <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Add product</MudButton>
@@ -33,10 +34,12 @@
 @code {
     ProductDto model = new ProductDto();
 
-    //TODO: Dodać alert że sie udało - lub że się nie udało
+    //TODO: Jeżeli nie wypełnione to cofnąć
 
     private async void OnValidSubmit(EditContext context)
     {
         await ProductService.AddProduct(model, 1);
+        alertService.SetSuccessAlert($"Successfully add product {model.Name}");
+        NavigationManager.NavigateTo("/myproducts");
     }
 }

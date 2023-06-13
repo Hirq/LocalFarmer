@@ -4,8 +4,6 @@
 @inject NavigationManager NavigationManager
 @inject AlertService alertService
 
-@using System.ComponentModel.DataAnnotations
-
 <PageTitle>Edit product</PageTitle>
 
 <EditForm Model="model" OnValidSubmit="OnValidSubmit">
@@ -18,13 +16,13 @@
                     <MudTextField Label="Name product"
                                   @bind-Value="model.Name" Required For="@(() => model.Name)"/>
                     <MudTextField Label="Description"
-                                  @bind-Value="model.Description" For="@(() => model.Description)" />
+                                  @bind-Value="model.Description" Required For="@(() => model.Description)" />
                     <MudTextField Label="Count min"
-                                  @bind-Value="model.CountMinOne" For="@(() => model.CountMinOne)"/>
+                                  @bind-Value="model.CountMinOne" Required For="@(() => model.CountMinOne)" />
                     <MudTextField Label="Prize for one"
-                                  @bind-Value="model.PrizeOne" For="@(() => model.PrizeOne)" />
+                                  @bind-Value="model.PrizeOne" Required For="@(() => model.PrizeOne)" />
                     <MudTextField Label="Count all"
-                                  @bind-Value="model.CountAll" For="@(() => model.CountAll)" />
+                                  @bind-Value="model.CountAll" Required For="@(() => model.CountAll)" />
                 </MudCardContent>
                 <MudCardActions>
                     <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Edit product</MudButton>
@@ -39,8 +37,6 @@
     public int Id { get; set; }
 
     ProductDto model = new ProductDto();
-
-    //TODO: Dodać alert że sie udało - lub że się nie udało
 
     protected override async Task OnParametersSetAsync()
     {

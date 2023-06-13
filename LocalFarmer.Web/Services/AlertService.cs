@@ -3,12 +3,20 @@
     public class AlertService
     {
         public bool IsSuccessAlert { get; set; }
-        public string SuccessText { get; set; }
+        public bool IsDeleteAlert { get; set; }
+        public string Text { get; set; }
 
         public void SetSuccessAlert(string text)
         {
             IsSuccessAlert = true;
-            SuccessText = text;
+            Text = text;
         }
+
+        public void SetDeleteAlert(string text)
+        {
+            IsDeleteAlert = true;
+            Text = text;
+        }
+
     }
 }

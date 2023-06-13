@@ -80,5 +80,16 @@ namespace LocalFarmer.API.Controllers
 
             return Ok(newProduct);
         }
+
+        [HttpDelete, Route("DeleteProduct/{idProduct}")]
+        public async Task<IActionResult> DeleteProduct(int idProduct)
+        {
+            var product = await _productRepository.GetFirstOrDefaultAsync(x => x.Id == idProduct);
+
+            _productRepository.Delete(product);
+            await _productRepository.SaveChangesAsync();
+
+            return Ok();
+        }
     }
 }
