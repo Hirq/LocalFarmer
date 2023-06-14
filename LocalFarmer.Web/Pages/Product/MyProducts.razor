@@ -47,7 +47,7 @@
         NavigationManager.NavigateTo($"editproduct/{id}");
     }
 
-    //TODO: Poprawić wyświetlanei alertów + odświeżenie listy
+    //TODO: Poprawić wyświetlanei alertów
 
     async void DeleteProduct(int id)
     {
@@ -55,5 +55,6 @@
         await ProductService.DeleteProduct(id);
         alertService.SetDeleteAlert($"Delete product {product.Name}");
         ListProducts = await ProductService.GetProductsFarmhouse(idFarmhouse);
+        StateHasChanged();
     }
 }
