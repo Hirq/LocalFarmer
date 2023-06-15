@@ -52,11 +52,10 @@
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (alertService.IsSuccessAlert || alertService.IsDeleteAlert)
-            {
-                alertService.IsSuccessAlert = false;
-                alertService.IsDeleteAlert = false;
-                await JSRuntime.InvokeVoidAsync("closeAlertAfterDelay");
-            }
+        {
+            alertService.IsSuccessAlert = false;
+            alertService.IsDeleteAlert = false;
+            await JSRuntime.InvokeVoidAsync("closeAlertAfterDelay");
         }
     }
 }

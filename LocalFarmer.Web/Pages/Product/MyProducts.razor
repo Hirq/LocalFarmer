@@ -47,7 +47,7 @@
         NavigationManager.NavigateTo($"editproduct/{id}");
     }
 
-    //TODO: Poprawić wyświetlanei alertów
+    //TODO: Poprawić wyświetlanei alertów + X zamyka poprawnie, ale po odczekaniu 2,5sec i usunieciu kolejnego nie pojawia sie alert
 
     async void DeleteProduct(int id)
     {
@@ -56,5 +56,6 @@
         alertService.SetDeleteAlert($"Delete product {product.Name}");
         ListProducts = await ProductService.GetProductsFarmhouse(idFarmhouse);
         StateHasChanged();
+        NavigationManager.NavigateTo("/myproducts");
     }
 }
