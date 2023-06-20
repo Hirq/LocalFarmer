@@ -1,9 +1,11 @@
 ﻿@page "/farmhouse/{id:int}"
 @inject IFarmhouseService FarmhouseService
+@inject IJSRuntime JSRuntime
 
 <PageTitle>Farmhouse</PageTitle>
 
 <h2>@farmhouse.Name - @farmhouse.Id</h2>
+<div id="map" style="height:70vh; width: 100%"></div>
 @code {
     [Parameter]
     public int Id { get; set; }
@@ -19,6 +21,14 @@
         else
         {
             farmhouse = await FarmhouseService.GetFarmhouse(Id);
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if(firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("initializeGoogleMap", null);
         }
     }
 }
