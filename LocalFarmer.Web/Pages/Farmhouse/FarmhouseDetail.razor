@@ -25,10 +25,13 @@
     {
         if (firstRender)
         {
+            var client = new HttpClient();
+            var raw = await client.GetStringAsync("https://localhost:7110/geojson.json");
             module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./leafletmap.js");
             if (module != null)
             {
-                result = await module.InvokeAsync<string>("load_map", 54.22, 16.11);
+                //result = await module.InvokeAsync<string>("load_map", 54.22, 16.11);
+                result = await module.InvokeAsync<string>("load_map", Convert.ToString(raw));
             }
         }
     }
