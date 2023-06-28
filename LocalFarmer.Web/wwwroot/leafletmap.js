@@ -3,6 +3,9 @@
 //    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
 //}
 
+//Plan - zrobić mapę dla wszystkich aktywnych gospodarstw + jak wchodze w szczeoly to widzę mape wszystkich ale jest wyśrodkowane na dane gosporastwo
+// A jak wchodze w ogolny to pyta o lokalizacje i pokazuje dookola, jak nie udostępni to na Warszawe i elo
+
 export function load_map(raw) {
     console.log(JSON.parse(String(raw)));
     let map = L.map('map').setView({ lon: 16.177133, lat: 54.196165 }, 14);
