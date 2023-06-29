@@ -5,7 +5,15 @@
 
 <PageTitle>Products All</PageTitle>
 
-<MudTable Items="@ListProducts" Hover="true" SortLabel="Sort By">
+@*<MudTable Items="@ListProducts" Hover="true" SortLabel="Sort By">*@
+<MudTable Items="@ListProducts" SortLabel="Sort By" Hover="true" Filter="new Func<Product,bool>(FilterFunc)" CommitEditTooltip="Commit Edit">
+
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Products</MudText>
+        <MudSpacer />
+        <MudTextField @bind-Value="searchString" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    </ToolBarContent>
+
     <HeaderContent>
         <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<Product, object>(x=>x.Id)">Id</MudTableSortLabel></MudTh>
         <MudTh><MudTableSortLabel SortBy="new Func<Product, object>(x=>x.Name)">Name</MudTableSortLabel></MudTh>
@@ -31,6 +39,7 @@
 
 @code {
     IEnumerable<Product> ListProducts = new List<Product>();
+    private string searchString = null;
 
     protected override async Task OnInitializedAsync()
     {
@@ -40,5 +49,20 @@
     void ShowProduct(int id)
     {
         NavigationManager.NavigateTo($"product/{id}");
+    }
+
+    private bool FilterFunc(Product product)
+    {
+        if (string.IsNullOrWhiteSpace(searchString))
+            return true;
+        if (product.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if (product.CountMinOne.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if (product.Description.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if ($"{product.PrizeOne} {product.Id}".Contains(searchString))
+            return true;
+        return false;
     }
 }
