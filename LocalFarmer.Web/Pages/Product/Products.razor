@@ -22,6 +22,7 @@
         <MudTh><MudTableSortLabel SortBy="new Func<Product, object>(x=>x.PrizeOne)">Prize one</MudTableSortLabel></MudTh>
         <MudTh><MudTableSortLabel SortBy="new Func<Product, object>(x=>x.CountAll)">Count all</MudTableSortLabel></MudTh>
         <MudTh>Detail</MudTh>
+        <MudTh>Farmhouse</MudTh>
     </HeaderContent>
     <RowTemplate>
         <MudTd DataLabel="Id">@context.Id</MudTd>
@@ -31,6 +32,7 @@
         <MudTd DataLabel="Prize one">@context.PrizeOne</MudTd>
         <MudTd DataLabel="Count all">@context.CountAll</MudTd>
         <MudTd DataLabel="Details"><MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="() => ShowProduct(context.Id)">Go to detail</MudButton></MudTd>
+        <MudTd DataLabel="Farmhouse"><MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="() => ShowFarmhouse(context.IdFarmhouse)">Go to farmhouse</MudButton></MudTd>
     </RowTemplate>
     <PagerContent>
         <MudTablePager PageSizeOptions="new int[]{50, 100}" />
@@ -49,6 +51,10 @@
     void ShowProduct(int id)
     {
         NavigationManager.NavigateTo($"product/{id}");
+    }
+    void ShowFarmhouse(int id)
+    {
+        NavigationManager.NavigateTo($"farmhouse/{id}");
     }
 
     private bool FilterFunc(Product product)
