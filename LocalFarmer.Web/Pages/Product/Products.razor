@@ -5,7 +5,6 @@
 
 <PageTitle>Products All</PageTitle>
 
-@*<MudTable Items="@ListProducts" Hover="true" SortLabel="Sort By">*@
 <MudTable Items="@ListProducts" SortLabel="Sort By" Hover="true" Filter="new Func<Product,bool>(FilterFunc)" CommitEditTooltip="Commit Edit">
 
     <ToolBarContent>
