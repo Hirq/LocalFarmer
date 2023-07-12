@@ -1,6 +1,5 @@
 ﻿using LocalFarmer.API.Enum;
 using LocalFarmer.API.Utilities;
-using LocalFarmer.Domain.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,12 +11,17 @@ namespace LocalFarmer.API.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
 
-        public AuthenticationController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IConfiguration configuration)
+        public AuthenticationController(UserManager<IdentityUser> userManager,
+            SignInManager<IdentityUser> signInManager,
+            RoleManager<IdentityRole> roleManager,
+            IConfiguration configuration)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
             _configuration = configuration;
         }
 
@@ -25,7 +29,7 @@ namespace LocalFarmer.API.Controllers
         public async Task<IActionResult> Register([FromBody] RegisterUserDto registerUser, string role)
         {
             var userExist = await _userManager.FindByEmailAsync(registerUser.Email);
-            if (userExist == null)
+            if (userExist != null)
             {
                 return StatusCode(StatusCodes.Status403Forbidden, new Response
                 {
@@ -41,19 +45,34 @@ namespace LocalFarmer.API.Controllers
                 SecurityStamp = Guid.NewGuid().ToString(),
             };
 
-            var result = await _userManager.CreateAsync(user, registerUser.Password);
+            if (await _roleManager.RoleExistsAsync(role))
+            {
+                var result = await _userManager.CreateAsync(user, registerUser.Password);
+                if (!result.Succeeded)
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, new Response
+                    {
+                        Status = StatusResponse.Error,
+                        Message = "User failed to create!"
+                    });
+                }
+                //Add role to user
 
-            return result.Succeeded
-                ? StatusCode(StatusCodes.Status201Created, new Response
+                await _userManager.AddToRoleAsync(user, role);
+                return StatusCode(StatusCodes.Status201Created, new Response
                 {
                     Status = StatusResponse.Success,
                     Message = "User created successfully!"
-                })
-                : (IActionResult)StatusCode(StatusCodes.Status500InternalServerError, new Response
+                });
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response
                 {
                     Status = StatusResponse.Error,
-                    Message = "User failed to create!"
+                    Message = "This role doesn't exist!"
                 });
+            }
         }
     }
 }
