@@ -10,10 +10,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-
-
-
 // Add services to the container.
 
 builder.Services.AddControllers()
@@ -35,14 +31,12 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<LocalfarmerDbContext>()
     .AddDefaultTokenProviders();
 
-
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
 });
-
 
 builder.Services.AddScoped<IFarmhouseRepository, FarmhouseRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
