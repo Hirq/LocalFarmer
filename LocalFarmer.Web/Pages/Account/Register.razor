@@ -1,6 +1,8 @@
 ﻿@layout RegisterLayout
 @page "/register"
 @using System.ComponentModel.DataAnnotations
+@inject IUserService UserService
+
 
 <MudPaper Height="100vh" Width="100%" Square="true" Class="mud-theme-primary">
     <MudContainer Fixed="true">
@@ -68,8 +70,9 @@
         public string Password2 { get; set; }
     }
 
-    private void OnValidSubmit(EditContext context)
+    private async void OnValidSubmit(EditContext context)
     {
+        await UserService.AddUser(model, "User");
         success = true;
         StateHasChanged();
     }
