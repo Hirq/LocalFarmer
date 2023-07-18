@@ -1,5 +1,4 @@
-﻿using LocalFarmer.Domain.Models;
-using static LocalFarmer.Web.Pages.Account.Register;
+﻿using static LocalFarmer.Web.Pages.Account.Register;
 
 namespace LocalFarmer.Web.Services
 {
@@ -17,7 +16,7 @@ namespace LocalFarmer.Web.Services
             RegisterUserDto userDto = new RegisterUserDto()
             {
                 Username = registerUser.Email,
-                Email= registerUser.Email,
+                Email = registerUser.Email,
                 Password = registerUser.Password,
             };
 

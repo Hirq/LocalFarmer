@@ -1,8 +1,9 @@
 ﻿@layout RegisterLayout
 @page "/register"
-@using System.ComponentModel.DataAnnotations
 @inject IUserService UserService
-
+@inject NavigationManager NavigationManager
+@inject AlertService alertService
+@using System.ComponentModel.DataAnnotations
 
 <MudPaper Height="100vh" Width="100%" Square="true" Class="mud-theme-primary">
     <MudContainer Fixed="true">
@@ -55,6 +56,7 @@
     RegisterAccountForm model = new RegisterAccountForm();
     bool success;
 
+    //TODO: Poprawić walidacje - wymagane haslo z dużą literą, znakiem specjalnym i 8znakow i liczba
     public class RegisterAccountForm
     {
         [Required]
@@ -75,6 +77,8 @@
         await UserService.AddUser(model, "User");
         success = true;
         StateHasChanged();
+        alertService.SetSuccessAlert($"Successfully add user");
+        NavigationManager.NavigateTo("/");
     }
 }
 
