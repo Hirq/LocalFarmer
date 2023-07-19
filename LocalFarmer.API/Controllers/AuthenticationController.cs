@@ -2,6 +2,8 @@
 using LocalFarmer.API.Utilities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace LocalFarmer.API.Controllers
 {
@@ -13,19 +15,23 @@ namespace LocalFarmer.API.Controllers
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
+        private readonly IApplicationUserRepository _applicationUserRepository;
 
         public AuthenticationController(UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
             RoleManager<IdentityRole> roleManager,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            IApplicationUserRepository applicationUserRepository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
             _configuration = configuration;
+            _applicationUserRepository = applicationUserRepository;
         }
 
         [HttpPost]
+        [Route("Register")]
         public async Task<IActionResult> Register([FromBody] RegisterUserDto registerUser, string role)
         {
             var userExist = await _userManager.FindByEmailAsync(registerUser.Email);
@@ -73,6 +79,37 @@ namespace LocalFarmer.API.Controllers
                     Message = "This role doesn't exist!"
                 });
             }
+        }
+
+        //TODO: DO poprawy
+        [HttpPost]
+        [Route("Login")]
+        public async Task<IActionResult> Login([FromBody] LoginUserDto loginUser)
+        {
+            try
+            {
+                String password = hashPassword(loginUser.Password);
+                var user = _applicationUserRepository.GetAllAsync(x => x.UserName == loginUser.UserName && x.PasswordHash == password);
+
+                if (user == null)
+                {
+                    return BadRequest("Username or password is incorrect");
+                }
+
+                return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        private string hashPassword(string password)
+        {
+            var sha = SHA256.Create();
+            var asByteArray = Encoding.Default.GetBytes(password);
+            var hashedPassword = sha.ComputeHash(asByteArray);
+            return Convert.ToBase64String(hashedPassword);
         }
     }
 }
