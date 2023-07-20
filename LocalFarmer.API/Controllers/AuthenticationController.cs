@@ -2,6 +2,7 @@
 using LocalFarmer.API.Utilities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -81,35 +82,52 @@ namespace LocalFarmer.API.Controllers
             }
         }
 
-        //TODO: DO poprawy
         [HttpPost]
         [Route("Login")]
         public async Task<IActionResult> Login([FromBody] LoginUserDto loginUser)
         {
-            try
-            {
-                String password = hashPassword(loginUser.Password);
-                var user = _applicationUserRepository.GetAllAsync(x => x.UserName == loginUser.UserName && x.PasswordHash == password);
+            var userExist = await _userManager.FindByNameAsync(loginUser.UserName);
 
-                if (user == null)
+            if (userExist == null)
+            {
+                return StatusCode(StatusCodes.Status404NotFound, new Response
                 {
-                    return BadRequest("Username or password is incorrect");
+                    Status = StatusResponse.Error,
+                    Message = "User not exixst!"
+                });
+            }
+            
+            if (!await _userManager.CheckPasswordAsync(userExist, loginUser.Password))
+            {
+                return StatusCode(StatusCodes.Status404NotFound, new Response
+                {
+                    Status = StatusResponse.Error,
+                    Message = "Password incorrect!"
+                });
+            }
+            else
+            {
+                var result = await _signInManager.PasswordSignInAsync(loginUser.UserName, loginUser.Password, false, false);
+
+                if (result.Succeeded)
+                {
+                    return StatusCode(StatusCodes.Status200OK, new Response
+                    {
+                        Status = StatusResponse.Success,
+                        Message = "User logged!"
+                    });
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status400BadRequest, new Response
+                    {
+                        Status = StatusResponse.Error,
+                        Message = "Bad request!"
+                    });
                 }
 
-                return Ok(user);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
             }
         }
 
-        private string hashPassword(string password)
-        {
-            var sha = SHA256.Create();
-            var asByteArray = Encoding.Default.GetBytes(password);
-            var hashedPassword = sha.ComputeHash(asByteArray);
-            return Convert.ToBase64String(hashedPassword);
-        }
     }
 }
