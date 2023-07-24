@@ -22,5 +22,7 @@ namespace LocalFarmer.Web.Services
 
             await _http.PostAsJsonAsync($"https://localhost:7290/api/Authentication?role={role}", userDto);
         }
+
+        //Trzeba dodać logowanie uzytkownika
     }
 }
