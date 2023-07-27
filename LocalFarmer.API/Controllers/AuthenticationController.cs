@@ -48,7 +48,7 @@ namespace LocalFarmer.API.Controllers
             var user = new ApplicationUser()
             {
                 Email = registerUser.Email,
-                UserName = registerUser.Username,
+                UserName = registerUser.UserName,
                 SecurityStamp = Guid.NewGuid().ToString(),
             };
 

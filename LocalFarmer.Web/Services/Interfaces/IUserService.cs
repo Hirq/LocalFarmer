@@ -1,9 +1,11 @@
-﻿using static LocalFarmer.Web.Pages.Account.Register;
+﻿using static LocalFarmer.Web.Pages.Account.Login;
+using static LocalFarmer.Web.Pages.Account.Register;
 
 namespace LocalFarmer.Web.Services
 {
     public interface IUserService
     {
-        public Task AddUser(RegisterAccountForm registerUser, string role);
+        public Task RegisterUser(RegisterAccountForm registerUser);
+        public Task LoginUser(LoginAccountForm registerUser);
     }
 }

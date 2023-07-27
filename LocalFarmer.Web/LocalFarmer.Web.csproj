@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\LocalFarmer.API\LocalFarmer.API.csproj" />
     <ProjectReference Include="..\LocalFarmer.Domain\LocalFarmer.Domain.csproj" />
   </ItemGroup>
 

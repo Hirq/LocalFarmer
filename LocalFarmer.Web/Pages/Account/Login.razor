@@ -1,5 +1,8 @@
 ﻿@layout RegisterLayout
 @page "/login"
+@inject IUserService UserService
+@inject NavigationManager NavigationManager
+@inject AlertService alertService
 @using System.ComponentModel.DataAnnotations
 
 <MudPaper Height="100vh" Width="100%" Square="true" Class="mud-theme-primary">
@@ -48,10 +51,10 @@
 </MudPaper>
 
 @code {
-    RegisterAccountForm model = new RegisterAccountForm();
+    LoginAccountForm model = new LoginAccountForm();
     bool success;
 
-    public class RegisterAccountForm
+    public class LoginAccountForm
     {
         [Required]
         [EmailAddress]
@@ -61,10 +64,13 @@
         public string Password { get; set; }
     }
 
-    private void OnValidSubmit(EditContext context)
+    private async void OnValidSubmit(EditContext context)
     {
+        await UserService.LoginUser(model);
         success = true;
         StateHasChanged();
+        alertService.SetSuccessAlert($"Successfully logged");
+        NavigationManager.NavigateTo("/");
     }
 }
 
