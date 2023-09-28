@@ -19,6 +19,7 @@ builder.Services.AddScoped<IFarmhouseService, FarmhouseService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddSingleton<AlertService>();
+builder.Services.AddSingleton<UtilsService>();
 
 builder.Services.AddMudServices();
 
