@@ -8,7 +8,6 @@ namespace LocalFarmer.Domain.Models
         [ForeignKey(nameof(Farmhouse))]
         public int? IdFarmhouse { get; set; }
 
-
         public Farmhouse Farmhouse { get; set; }
     }
 }
