@@ -22,5 +22,6 @@ builder.Services.AddSingleton<AlertService>();
 builder.Services.AddSingleton<UtilsService>();
 
 builder.Services.AddMudServices();
+builder.Services.AddAuthorizationCore();
 
 await builder.Build().RunAsync();

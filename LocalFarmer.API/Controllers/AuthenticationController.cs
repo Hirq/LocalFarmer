@@ -2,9 +2,6 @@
 using LocalFarmer.API.Utilities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace LocalFarmer.API.Controllers
 {
@@ -96,7 +93,7 @@ namespace LocalFarmer.API.Controllers
                     Message = "User not exixst!"
                 });
             }
-            
+
             if (!await _userManager.CheckPasswordAsync(userExist, loginUser.Password))
             {
                 return StatusCode(StatusCodes.Status404NotFound, new Response
